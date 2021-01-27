@@ -1,6 +1,8 @@
 package personnage.elements;
 
-public interface Eau extends Element {
+import objets.typestat.Portee;
+
+public interface Eau extends Element, Portee {
 
 	public default String getElement() {
 		return "Eau";

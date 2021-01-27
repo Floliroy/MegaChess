@@ -1,6 +1,8 @@
 package personnage.origines;
 
-public interface Noxus extends Origine {
+import objets.typestat.Degats;
+
+public interface Noxus extends Origine, Degats {
 
 	public default String getOrigine() {
 		return "Noxus";

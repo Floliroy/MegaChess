@@ -1,6 +1,8 @@
 package personnage.elements;
 
-public interface Terre extends Element {
+import objets.typestat.Vie;
+
+public interface Terre extends Element, Vie {
 
 	public default String getElement() {
 		return "Terre";

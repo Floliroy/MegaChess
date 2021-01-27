@@ -1,6 +1,6 @@
 package objets.typestat;
 
-public interface TypeStat {
+public abstract interface TypeStat {
 
 	public String getTypeStat();
 	

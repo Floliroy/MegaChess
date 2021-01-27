@@ -6,7 +6,7 @@ public abstract class Objet {
 	private String nom;
 	
 
-	public Objet(String nom,Integer stat) {
+	public Objet(String nom, Integer stat) {
 		this.stat = stat;
 		this.nom = nom;
 		

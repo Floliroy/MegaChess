@@ -1,6 +1,8 @@
 package personnage.origines;
 
-public interface Ionia extends Origine {
+import objets.typestat.Deplacements;
+
+public interface Ionia extends Origine, Deplacements {
 
 	public default String getOrigine() {
 		return "Ionia";

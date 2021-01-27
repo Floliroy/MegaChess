@@ -1,6 +1,8 @@
 package personnage.elements;
 
-public interface Feu extends Element {
+import objets.typestat.Degats;
+
+public interface Feu extends Element, Degats {
 
 	public default String getElement() {
 		return "Feu";

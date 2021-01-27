@@ -1,6 +1,8 @@
 package personnage.origines;
 
-public interface Demacia extends Origine {
+import objets.typestat.Vie;
+
+public interface Demacia extends Origine, Vie {
 
 	public default String getOrigine() {
 		return "Demacia";
