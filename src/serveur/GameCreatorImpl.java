@@ -4,13 +4,12 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator {
 	
 	private static final long serialVersionUID = -360720568897070466L;
 	
-	private List<GameManagerImpl> list;
+	private ArrayList<GameManagerImpl> list;
 
     public GameCreatorImpl() throws RemoteException {
         list = new ArrayList<>();
