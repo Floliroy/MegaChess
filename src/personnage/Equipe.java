@@ -13,6 +13,11 @@ public class Equipe extends ArrayList<Personnage> {
 	
 	public static final Integer TAILLE_EQUIPE_MAX = 8;
 	
+	private static final Integer BONUS_VIE = 50;
+	private static final Integer BONUS_DEGATS = 10;
+	private static final Integer BONUS_DEPLACEMENTS = 1;
+	private static final Integer BONUS_PORTEE = 1;
+	
 	@Override
 	public boolean add(Personnage personnage) {
 		if(this.size() < TAILLE_EQUIPE_MAX && !this.contains(personnage)) {
@@ -22,77 +27,49 @@ public class Equipe extends ArrayList<Personnage> {
 			return false;
 		}
 	}
-
-	public Integer getVieBonus(Personnage personnage) {
-		Integer nombre = 0;
-		Integer multiplier = 0;
-		Integer bonus = 50;
-		
-		if(personnage instanceof Vie) {
-			multiplier = (!(personnage instanceof Degats) && !(personnage instanceof Deplacements) && !(personnage instanceof Portee)) ? 2 : 1;
-		}
-		
-		for(Personnage perso : this) {
-			if(perso instanceof Vie && perso != personnage) {
-				nombre++;
+	
+	private Integer getOrigineBonus(Personnage personnage, Class<?> typeStat, Integer bonus) {
+		if(personnage.getOrigineTypeStat().equals(typeStat)) {
+			Integer nombre = 1;
+			for(Personnage perso : this) {
+				if(perso.getOrigineTypeStat().equals(typeStat) && perso != personnage) {
+					nombre++;
+				}
 			}
+			return nombre * bonus;
 		}
-		
-		return nombre * multiplier * bonus;
+		return 0;
+	}
+	private Integer getElementBonus(Personnage personnage, Class<?> typeStat, Integer bonus) {
+		if(personnage.getElementTypeStat().equals(typeStat)) {
+			Integer nombre = 1;
+			for(Personnage perso : this) {
+				if(perso.getElementTypeStat().equals(typeStat) && perso != personnage) {
+					nombre++;
+				}
+			}
+			return nombre * bonus;
+		}
+		return 0;
+	}
+	private Integer getBonus(Personnage personnage, Class<?> typeStat, Integer bonus) {
+		return this.getElementBonus(personnage, typeStat, bonus) + this.getOrigineBonus(personnage, typeStat, bonus);
+	}
+
+	public Integer getVieBonus(Personnage personnage) {	
+		return this.getBonus(personnage, Vie.getTypeStat(), BONUS_VIE);
 	}
 	
 	public Integer getDegatsBonus(Personnage personnage) {
-		Integer nombre = 0;
-		Integer multiplier = 0;
-		Integer bonus = 10;
-		
-		if(personnage instanceof Degats) {
-			multiplier = (!(personnage instanceof Vie) && !(personnage instanceof Deplacements) && !(personnage instanceof Portee)) ? 2 : 1;
-		}
-		
-		for(Personnage perso : this) {
-			if(perso instanceof Degats && perso != personnage) {
-				nombre++;
-			}
-		}
-		
-		return nombre * multiplier * bonus;
+		return this.getBonus(personnage, Degats.getTypeStat(), BONUS_DEGATS);
 	}
 	
 	public Integer getDeplacementsBonus(Personnage personnage) {
-		Integer nombre = 0;
-		Integer multiplier = 0;
-		Integer bonus = 1;
-		
-		if(personnage instanceof Deplacements) {
-			multiplier = (!(personnage instanceof Vie) && !(personnage instanceof Degats) && !(personnage instanceof Portee)) ? 2 : 1;
-		}
-		
-		for(Personnage perso : this) {
-			if(perso instanceof Deplacements && perso != personnage) {
-				nombre++;
-			}
-		}
-		
-		return nombre * multiplier * bonus;
+		return this.getBonus(personnage, Deplacements.getTypeStat(), BONUS_DEPLACEMENTS);
 	}
 	
 	public Integer getPorteeBonus(Personnage personnage) {
-		Integer nombre = 0;
-		Integer multiplier = 0;
-		Integer bonus = 1;
-		
-		if(personnage instanceof Portee) {
-			multiplier = (!(personnage instanceof Vie) && !(personnage instanceof Degats) && !(personnage instanceof Deplacements)) ? 2 : 1;
-		}
-		
-		for(Personnage perso : this) {
-			if(perso instanceof Portee && perso != personnage) {
-				nombre++;
-			}
-		}
-		
-		return nombre * multiplier * bonus;
+		return this.getBonus(personnage, Portee.getTypeStat(), BONUS_PORTEE);
 	}
 
 	public Boolean isComplete() {

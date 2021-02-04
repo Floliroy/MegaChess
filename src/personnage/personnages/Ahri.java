@@ -16,9 +16,4 @@ public class Ahri extends Personnage implements Ionia, Eau {
 		super(nom, vie, degats, deplacements, portee);
 	}
 
-	@Override
-	public String getTypeStat() {
-		return Ionia.super.getTypeStat() + Eau.super.getTypeStat();
-	}
-
 }

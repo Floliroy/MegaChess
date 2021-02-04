@@ -2,7 +2,8 @@ package objet.typestat;
 
 public interface Vie extends TypeStat {
 
-	public default String getTypeStat() {
-		return "Vie";
+	public static Class<?> getTypeStat() {
+		return Vie.class;
 	}
+	
 }

@@ -2,10 +2,14 @@ package personnage.origines;
 
 import objet.typestat.Portee;
 
-public interface BilgeWater extends Origine, Portee {
+public abstract interface BilgeWater extends Origine, Portee {
 
-	public default String getOrigine() {
-		return "BilgeWater";
+	public default Class<?> getOrigine() {
+		return BilgeWater.class;
+	}
+	
+	public default Class<?> getOrigineTypeStat() {
+		return Portee.getTypeStat();
 	}
 	
 }

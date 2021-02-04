@@ -2,7 +2,8 @@ package objet.typestat;
 
 public interface Portee extends TypeStat {
 
-	public default String getTypeStat() {
-		return "Portee";
+	public static Class<?> getTypeStat() {
+		return Portee.class;
 	}
+	
 }

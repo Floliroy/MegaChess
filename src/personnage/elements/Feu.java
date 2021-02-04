@@ -2,10 +2,14 @@ package personnage.elements;
 
 import objet.typestat.Degats;
 
-public interface Feu extends Element, Degats {
+public abstract interface Feu extends Element, Degats {
 
-	public default String getElement() {
-		return "Feu";
+	public default Class<?> getElement() {
+		return Feu.class;
+	}
+	
+	public default Class<?> getElementTypeStat() {
+		return Degats.getTypeStat();
 	}
 	
 }

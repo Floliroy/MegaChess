@@ -2,6 +2,8 @@ package personnage.origines;
 
 public abstract interface Origine {
 	
-	public String getOrigine();
+	public Class<?> getOrigine();
+	
+	public Class<?> getOrigineTypeStat();
 	
 }

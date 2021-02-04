@@ -7,8 +7,10 @@ import objet.typestat.Degats;
 import objet.typestat.Deplacements;
 import objet.typestat.Portee;
 import objet.typestat.Vie;
+import personnage.elements.Element;
+import personnage.origines.Origine;
 
-public abstract class Personnage {
+public abstract class Personnage implements Element, Origine {
 
 	public static final Integer TAILLE_INVENTAIRE_MAX = 3;
 	

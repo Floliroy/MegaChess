@@ -2,7 +2,8 @@ package objet.typestat;
 
 public interface Degats extends TypeStat {
 
-	public default String getTypeStat() {
-		return "Degats";
+	public static Class<?> getTypeStat() {
+		return Degats.class;
 	}
+	
 }

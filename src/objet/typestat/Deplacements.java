@@ -2,7 +2,8 @@ package objet.typestat;
 
 public interface Deplacements extends TypeStat {
 
-	public default String getTypeStat() {
-		return "Deplacements";
+	public static Class<?> getTypeStat() {
+		return Deplacements.class;
 	}
+	
 }

@@ -2,10 +2,14 @@ package personnage.elements;
 
 import objet.typestat.Portee;
 
-public interface Eau extends Element, Portee {
+public abstract interface Eau extends Element, Portee {
 
-	public default String getElement() {
-		return "Eau";
+	public default Class<?> getElement() {
+		return Eau.class;
+	}
+	
+	public default Class<?> getElementTypeStat() {
+		return Portee.getTypeStat();
 	}
 	
 }

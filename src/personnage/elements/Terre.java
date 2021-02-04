@@ -2,10 +2,14 @@ package personnage.elements;
 
 import objet.typestat.Vie;
 
-public interface Terre extends Element, Vie {
+public abstract interface Terre extends Element, Vie {
 
-	public default String getElement() {
-		return "Terre";
+	public default Class<?> getElement() {
+		return Terre.class;
+	}
+	
+	public default Class<?> getElementTypeStat() {
+		return Vie.getTypeStat();
 	}
 	
 }
