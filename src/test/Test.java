@@ -1,12 +1,16 @@
 package test;
 
+import personnage.Equipe;
 import personnage.personnages.Ahri;
 
 public class Test {
 
 	public static void main(String[] args) {
 		Ahri ahri = new Ahri();
-		System.out.println(ahri.getNom());
+		Equipe equipe = new Equipe();
+		equipe.add(ahri);
+		
+		System.out.println(ahri.getDeplacementsAvecBonus());
 	}
 
 }

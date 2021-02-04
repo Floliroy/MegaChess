@@ -1,6 +1,6 @@
 package personnage.elements;
 
-import objets.typestat.Portee;
+import objet.typestat.Portee;
 
 public interface Eau extends Element, Portee {
 

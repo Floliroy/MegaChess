@@ -1,6 +1,6 @@
 package personnage.elements;
 
-import objets.typestat.Deplacements;
+import objet.typestat.Deplacements;
 
 public interface Vent extends Element, Deplacements {
 

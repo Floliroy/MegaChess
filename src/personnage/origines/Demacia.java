@@ -1,6 +1,6 @@
 package personnage.origines;
 
-import objets.typestat.Vie;
+import objet.typestat.Vie;
 
 public interface Demacia extends Origine, Vie {
 

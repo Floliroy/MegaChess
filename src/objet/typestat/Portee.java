@@ -1,4 +1,4 @@
-package objets.typestat;
+package objet.typestat;
 
 public interface Portee extends TypeStat {
 

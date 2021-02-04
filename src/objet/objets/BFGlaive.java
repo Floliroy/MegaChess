@@ -1,7 +1,7 @@
-package objets.objets;
+package objet.objets;
 
-import objets.Objet;
-import objets.typestat.Degats;
+import objet.Objet;
+import objet.typestat.Degats;
 
 public class BFGlaive extends Objet implements Degats{
 

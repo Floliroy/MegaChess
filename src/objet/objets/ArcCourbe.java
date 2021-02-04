@@ -1,7 +1,7 @@
-package objets.objets;
+package objet.objets;
 
-import objets.Objet;
-import objets.typestat.Vitesse;
+import objet.Objet;
+import objet.typestat.Vitesse;
 
 public class ArcCourbe extends Objet implements Vitesse {
 	

@@ -1,6 +1,6 @@
 package personnage.origines;
 
-import objets.typestat.Degats;
+import objet.typestat.Degats;
 
 public interface Noxus extends Origine, Degats {
 

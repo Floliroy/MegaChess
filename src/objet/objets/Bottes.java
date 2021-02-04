@@ -1,7 +1,7 @@
-package objets.objets;
+package objet.objets;
 
-import objets.Objet;
-import objets.typestat.Deplacements;
+import objet.Objet;
+import objet.typestat.Deplacements;
 
 public class Bottes extends Objet implements Deplacements {
 	

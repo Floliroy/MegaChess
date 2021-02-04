@@ -1,8 +1,8 @@
-package objets.objets;
+package objet.objets;
 
 
-import objets.Objet;
-import objets.typestat.Portee;
+import objet.Objet;
+import objet.typestat.Portee;
 
 
 

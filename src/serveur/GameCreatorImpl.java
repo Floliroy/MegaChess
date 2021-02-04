@@ -22,7 +22,7 @@ public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator 
 
     public void addGame(String gameId) throws RemoteException, AlreadyBoundException {
         list.add(new GameManagerImpl(gameId));
-        System.out.println("La partie a bien été crée");
+        System.out.println("La partie a bien ï¿½tï¿½ crï¿½e");
     }
 
     @Override
@@ -45,7 +45,7 @@ public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator 
         GameManagerImpl gm = null;
 
         for(int cmpt = 0; cmpt < list.size(); cmpt++){
-            if(!list.get(cmpt).getJeu().isFull()){
+            if(!list.get(cmpt).getJeu().isComplet()){
                 gm = list.get(cmpt);
                 System.out.println("Partie trouvee " + gm.getId());
                 break;

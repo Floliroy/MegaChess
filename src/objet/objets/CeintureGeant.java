@@ -1,7 +1,7 @@
-package objets.objets;
+package objet.objets;
 
-import objets.Objet;
-import objets.typestat.Vie;
+import objet.Objet;
+import objet.typestat.Vie;
 
 public class CeintureGeant extends Objet implements Vie {
 

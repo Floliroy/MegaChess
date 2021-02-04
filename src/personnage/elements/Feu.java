@@ -1,6 +1,6 @@
 package personnage.elements;
 
-import objets.typestat.Degats;
+import objet.typestat.Degats;
 
 public interface Feu extends Element, Degats {
 

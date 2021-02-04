@@ -1,6 +1,6 @@
 package personnage.elements;
 
-import objets.typestat.Vie;
+import objet.typestat.Vie;
 
 public interface Terre extends Element, Vie {
 

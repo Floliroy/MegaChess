@@ -15,13 +15,16 @@ public class Client {
 	
 	 public static int getInput(){
         System.out.println("1 - Create \n2 - Join");
-        Scanner sc = new Scanner(System.in);
+        
+        @SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
         return sc.nextInt();
     }
 
     public static void main(String []args) throws RemoteException, MalformedURLException, NotBoundException {
 
-        Registry registry = LocateRegistry.getRegistry(1099);
+        @SuppressWarnings("unused")
+		Registry registry = LocateRegistry.getRegistry(1099);
         GameCreator stubMaster = (GameCreator) Naming.lookup("Creator");
         String gameName = null;
 

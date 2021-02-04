@@ -1,4 +1,4 @@
-package objets;
+package objet;
 
 public abstract class Objet {
 
@@ -11,6 +11,10 @@ public abstract class Objet {
 		this.nom = nom;
 		
 	}
+	
+	/////////////////////////
+	//// GETTER & SETTER ////
+	/////////////////////////
 	
 	public String getNom() {
 		return nom;
