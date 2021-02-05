@@ -2,17 +2,20 @@ package test;
 
 import personnage.Equipe;
 import personnage.personnages.Ahri;
+import personnage.personnages.Fizz;
 
 public class Test {
 
 	public static void main(String[] args) {
-		Ahri ahri = new Ahri();
-		Ahri ahri2 = new Ahri();
-		Equipe equipe = new Equipe();
-		equipe.add(ahri);
-		equipe.add(ahri2);
+		Equipe equipe1 = new Equipe();
+		Equipe equipe2 = new Equipe();
 		
-		System.out.println(ahri.getDeplacementsAvecBonus());
+		Ahri ahri = new Ahri();
+		equipe1.add(ahri);
+		Fizz fizz = new Fizz();
+		equipe2.add(fizz);
+		
+		ahri.attaque(fizz);
 	}
 
 }

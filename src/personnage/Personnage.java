@@ -20,6 +20,8 @@ public abstract class Personnage implements Element, Origine {
 	private Integer degats;
 	private Integer deplacements;
 	private Integer portee;
+	private Double esquive;
+	private Double vitesse;
 	private ArrayList<Objet> objets;
 	
 	private Equipe equipe;
@@ -31,7 +33,9 @@ public abstract class Personnage implements Element, Origine {
 		this.degats = degats;
 		this.deplacements = deplacements;
 		this.portee = portee;
-		this.setObjets(new ArrayList<>());
+		this.esquive = 0.1;
+		this.vitesse = 0.1;
+		this.objets = new ArrayList<>();
 	}
 	
 	public Integer getVieAvecBonus() {
@@ -82,13 +86,17 @@ public abstract class Personnage implements Element, Origine {
 
 	public void recoitDegats(Integer degatsRecus) {
 		degatsRecus = degatsRecus >= 0 ? degatsRecus : 0;
-		vie -= degatsRecus;
-		System.out.println(this.nom + " -" + degatsRecus + "PV");
+		if(Math.random() > this.esquive) {
+			vie -= degatsRecus;
+			System.out.println(this.nom + " -" + degatsRecus + "PV");
+		}else {
+			System.out.println(this.nom + " esquive l'attaque");
+		}
 	}
 	
 	public void attaque(Personnage adversaire) {
-		adversaire.recoitDegats(getDegatsAvecBonus());
 		System.out.println(this.nom + " attaque " + adversaire.getNom());
+		adversaire.recoitDegats(getDegatsAvecBonus());
 	}
 
 	public Boolean isVivant() {
@@ -168,6 +176,22 @@ public abstract class Personnage implements Element, Origine {
 
 	public void setObjets(ArrayList<Objet> objets) {
 		this.objets = objets;
+	}
+
+	public Double getEsquive() {
+		return esquive;
+	}
+
+	public void setEsquive(Double esquive) {
+		this.esquive = esquive;
+	}
+
+	public Double getVitesse() {
+		return vitesse;
+	}
+
+	public void setVitesse(Double vitesse) {
+		this.vitesse = vitesse;
 	}
 	
 }
