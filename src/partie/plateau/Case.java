@@ -4,12 +4,12 @@ import personnage.Personnage;
 
 public class Case {
 
-	private int ligne;
-	private int colonne;
+	private Integer ligne;
+	private Integer colonne;
 	private Personnage personnage;
 	
 	// Constructeur
-	public Case(int ligne, int colonne) {
+	public Case(Integer ligne, Integer colonne) {
 		this.ligne = ligne;
 		this.colonne = colonne;
 	}
@@ -23,11 +23,11 @@ public class Case {
 		this.personnage = personnage;
 	}
 
-	public int getLigne() {
+	public Integer getLigne() {
 		return ligne;
 	}
 
-	public int getColonne() {
+	public Integer getColonne() {
 		return colonne;
 	}
 	
