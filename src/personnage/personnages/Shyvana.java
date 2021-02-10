@@ -11,9 +11,10 @@ public class Shyvana extends Personnage implements Demacia, Feu {
 	private static final Integer deplacements = 4;
 	private static final Integer degats = 20;
 	private static final Integer portee = 3;
+	private static final Double vitesse = 0.7;
 	
 	public Shyvana() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 
 }

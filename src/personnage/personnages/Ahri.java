@@ -11,9 +11,10 @@ public class Ahri extends Personnage implements Ionia, Eau {
 	private static final Integer degats = 30;
 	private static final Integer deplacements = 4;
 	private static final Integer portee = 6;
+	private static final Double vitesse = 0.5;
 	
 	public Ahri() {
-		super(nom, vie, degats, deplacements, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 
 }

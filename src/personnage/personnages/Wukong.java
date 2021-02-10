@@ -11,9 +11,10 @@ public class Wukong extends Personnage implements Ionia, Feu {
 	private static final Integer deplacements = 3;
 	private static final Integer degats = 25;
 	private static final Integer portee = 3;
+	private static final Double vitesse = 0.6;
 	
 	public Wukong() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

@@ -11,9 +11,10 @@ public class Kled extends Personnage implements Noxus, Feu {
 	private static final Integer deplacements = 6;
 	private static final Integer degats = 25;
 	private static final Integer portee = 1;
+	private static final Double vitesse = 0.7;
 	
 	public Kled() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

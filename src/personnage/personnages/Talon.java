@@ -11,9 +11,10 @@ public class Talon extends Personnage implements Noxus, Vent {
 	private static final Integer deplacements = 5;
 	private static final Integer degats = 50;
 	private static final Integer portee = 3;
+	private static final Double vitesse = 0.5;
 	
 	public Talon() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

@@ -11,9 +11,10 @@ public class Yasuo extends Personnage implements Ionia, Vent {
 	private static final Integer deplacements = 4;
 	private static final Integer degats = 30;
 	private static final Integer portee = 2;
+	private static final Double vitesse = 0.7;
 	
 	public Yasuo() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

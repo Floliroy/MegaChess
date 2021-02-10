@@ -11,9 +11,10 @@ public class Sion extends Personnage implements Noxus, Terre {
 	private static final Integer deplacements = 2;
 	private static final Integer degats = 15;
 	private static final Integer portee = 1;
+	private static final Double vitesse = 0.3;
 	
 	public Sion() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

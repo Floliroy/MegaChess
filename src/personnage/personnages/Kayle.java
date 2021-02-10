@@ -11,9 +11,10 @@ public class Kayle extends Personnage implements Demacia, Vent {
 	private static final Integer deplacements = 2;
 	private static final Integer degats = 25;
 	private static final Integer portee = 6;
+	private static final Double vitesse = 0.6;
 	
 	public Kayle() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

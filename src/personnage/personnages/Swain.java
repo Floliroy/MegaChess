@@ -11,9 +11,10 @@ public class Swain extends Personnage implements Noxus, Feu {
 	private static final Integer deplacements = 2;
 	private static final Integer degats = 20;
 	private static final Integer portee = 5;
+	private static final Double vitesse = 0.4;
 	
 	public Swain() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

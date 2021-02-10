@@ -7,13 +7,20 @@ import objet.typestat.Degats;
 import objet.typestat.Deplacements;
 import objet.typestat.Portee;
 import objet.typestat.Vie;
+import objet.typestat.Vitesse;
 import personnage.elements.Element;
 import personnage.origines.Origine;
 
 public abstract class Personnage implements Element, Origine {
-
-	public static final Integer TAILLE_INVENTAIRE_MAX = 3;
 	
+	////////////////////
+	//// CONSTANTES ////
+	////////////////////
+	public static final Integer TAILLE_INVENTAIRE_MAX = 3;
+
+	//////////////////
+	//// ATRIBUTS ////
+	//////////////////
 	private String nom;
 	private Integer vie;
 	private Integer vieBase;
@@ -26,7 +33,7 @@ public abstract class Personnage implements Element, Origine {
 	
 	private Equipe equipe;
 
-	public Personnage(String nom, Integer vie, Integer degats, Integer deplacements, Integer portee) {
+	public Personnage(String nom, Integer vie, Integer degats, Integer deplacements, Integer portee, Double vitesse) {
 		this.nom = nom;
 		this.vie = vie;
 		this.vieBase = vie;
@@ -34,10 +41,13 @@ public abstract class Personnage implements Element, Origine {
 		this.deplacements = deplacements;
 		this.portee = portee;
 		this.esquive = 0.1;
-		this.vitesse = 0.1;
+		this.vitesse = vitesse;
 		this.objets = new ArrayList<>();
 	}
-	
+
+	//////////////////
+	//// MÉTHODES ////
+	//////////////////
 	public Integer getVieAvecBonus() {
 		Integer bonus = this.equipe.getVieBonus(this);
 		for(Objet objet : objets) {
@@ -83,10 +93,28 @@ public abstract class Personnage implements Element, Origine {
 		}
 		return this.portee + bonus;
 	}
-
+	public Double getVitesseAvecBonus() {
+		Integer bonus = 0;
+		for(Objet objet : objets) {
+			if(objet instanceof Vitesse) {
+				bonus += objet.getStat();
+			}
+		}
+		return this.vitesse + bonus/100;
+	}
+	public Double getEsquiveAvecBonus() {
+		Integer bonus = 0;
+		for(Objet objet : objets) {
+			if(objet instanceof Vitesse) {
+				bonus += objet.getStat();
+			}
+		}
+		return this.esquive + bonus/100;
+	}
+	
 	public void recoitDegats(Integer degatsRecus) {
 		degatsRecus = degatsRecus >= 0 ? degatsRecus : 0;
-		if(Math.random() > this.esquive) {
+		if(Math.random() > this.getEsquiveAvecBonus()) {
 			vie -= degatsRecus;
 			System.out.println(this.nom + " -" + degatsRecus + "PV");
 		}else {
@@ -113,7 +141,6 @@ public abstract class Personnage implements Element, Origine {
 	/////////////////////////
 	//// GETTER & SETTER ////
 	/////////////////////////
-	
 	public String getNom() {
 		return nom;
 	}

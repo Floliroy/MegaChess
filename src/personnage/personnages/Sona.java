@@ -11,9 +11,10 @@ public class Sona extends Personnage implements Demacia, Eau {
 	private static final Integer deplacements = 2;
 	private static final Integer degats = 15;
 	private static final Integer portee = 6;
+	private static final Double vitesse = 0.4;
 	
 	public Sona() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

@@ -11,9 +11,10 @@ public class Poppy extends Personnage implements Demacia, Terre {
 	private static final Integer deplacements = 5;
 	private static final Integer degats = 8;
 	private static final Integer portee = 2;
+	private static final Double vitesse = 0.4;
 	
 	public Poppy() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

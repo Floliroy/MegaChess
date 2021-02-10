@@ -11,9 +11,10 @@ public class Fizz extends Personnage implements BilgeWater, Eau {
 	private static final Integer degats = 40;
 	private static final Integer deplacements = 4;
 	private static final Integer portee = 2;
+	private static final Double vitesse = 0.4;
 	
 	public Fizz() {
-		super(nom, vie, deplacements, degats, portee);
+		super(nom, vie, degats, deplacements, portee, vitesse);
 	}
 	
 }

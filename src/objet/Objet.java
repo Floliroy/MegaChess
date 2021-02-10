@@ -9,7 +9,6 @@ public abstract class Objet {
 	public Objet(String nom, Integer stat) {
 		this.stat = stat;
 		this.nom = nom;
-		
 	}
 	
 	/////////////////////////
