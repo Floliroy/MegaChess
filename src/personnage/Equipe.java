@@ -11,7 +11,7 @@ public class Equipe extends ArrayList<Personnage> {
 
 	private static final long serialVersionUID = -8065185716558859597L;
 	
-	public static final Integer TAILLE_EQUIPE_MAX = 8;
+	public static final Integer TAILLE_EQUIPE_MAX = 4;
 	
 	private static final Integer BONUS_VIE = 50;
 	private static final Integer BONUS_DEGATS = 10;

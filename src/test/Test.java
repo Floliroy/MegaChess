@@ -1,5 +1,6 @@
 package test;
 
+import partie.plateau.Plateau;
 import personnage.Equipe;
 import personnage.Personnage;
 import personnage.personnages.Ahri;
@@ -22,8 +23,11 @@ public class Test {
 		equipe1.add(ahri);
 		Fizz fizz = new Fizz();
 		equipe2.add(fizz);
-		
-		attaque(fizz, ahri);
+
+		Plateau plateau = new Plateau();
+		plateau.placerPersonnage(ahri, 3, 2);
+		plateau.placerPersonnage(fizz, 5, 6);
+		plateau.afficher();
 	}
 
 }
