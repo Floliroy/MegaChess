@@ -51,7 +51,7 @@ public class GameManagerImpl extends UnicastRemoteObject implements GameManager 
     
     @Override
     public void rejoindrePartie(String name) throws RemoteException {	
-    	jeu.addJoueur(name, new Joueur(name));
+    	jeu.addJoueur(new Joueur(name));
     	notification.notifier("Un joueur a ete ajoute ");
     }
  
