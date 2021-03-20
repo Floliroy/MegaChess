@@ -8,15 +8,17 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 
-import serveur.GameCreator;
-import serveur.GameManager;
+import serveur.base.GameCreator;
+import serveur.base.GameManager;
+import serveur.implementation.NotificationImpl;
+
 
 public class Client {
 	
-	public static final String SERVEUR_IP = "192.168.1.16";
+	public static final String SERVEUR_IP = "localhost";
 	public static final String URL = "rmi://"+ SERVEUR_IP;
 	
-	 public static int getInput(){
+	public static int getInput(){
         System.out.println("1 - Create \n2 - Join");
         
         @SuppressWarnings("resource")
@@ -28,35 +30,45 @@ public class Client {
 
         @SuppressWarnings("unused")
 		Registry registry = LocateRegistry.getRegistry(1099);
-        GameCreator stubMaster = (GameCreator) Naming.lookup(URL + "/Creator");
-        String gameName = null;
-
-        // Creation d'une partie
-        if(Client.getInput() == 1) {
-            gameName = stubMaster.createGame();
-            System.out.println("Game :" + gameName);
-
-            GameManager stubSlave = (GameManager) Naming.lookup(URL + gameName);//IP
-            stubSlave.joinGame("Player1");  
-        }
-        // Connection a une partie
-        else {
-            gameName = stubMaster.findGame();
-            if(gameName == null)
+        GameCreator createur = (GameCreator) Naming.lookup(URL + "/Createur");
+        GameManager manage;
+        NotificationImpl notification = new NotificationImpl();
+        
+       String nomPartie;
+ 
+       if(Client.getInput() == 1) {
+            nomPartie = createur.creerPartie();
+            System.out.println("Creation de la partie " + nomPartie);
+            
+            manage = createur.getGameManager(nomPartie);
+            Naming.rebind(URL + "/"+ nomPartie, manage);          
+            
+            /*---*/
+            manage.ajouterNotification(notification);
+            manage.rejoindrePartie("crt");
+            
+       }
+        
+       else {
+            nomPartie = createur.trouverPartie();
+            if(nomPartie == null) 
                 System.out.println("Aucune partie trouvee");
             else {
-                System.out.println("Partie trouvee : " + gameName);
-                GameManager stubSlave = (GameManager) Naming.lookup(URL + gameName);//IP
-
-                stubSlave.joinGame("Player2");
+                System.out.println("Partie trouvee : " + nomPartie);
+                manage = createur.getGameManager(nomPartie);
+                Naming.rebind(URL + "/"+ nomPartie, manage);
+                              
+                /*---*/
+                
+                manage.rejoindrePartie("rj");
             }
         }
 
-        while(true);
-        // Attaquer
-        // Déplacer
-        // Passer son tour
+       @SuppressWarnings("unused")
+       int in = getInput();
         
         
+    	
+
     }
 }

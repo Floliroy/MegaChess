@@ -7,12 +7,15 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import serveur.implementation.GameCreatorImpl;
+
 public class Serveur {
 
 	public static void main(String []args) throws RemoteException, MalformedURLException, AlreadyBoundException {
-        Registry registry  = LocateRegistry.createRegistry(1099);
-        GameCreatorImpl skeleton = new GameCreatorImpl();
-        Naming.bind("Creator", skeleton);
+        @SuppressWarnings("unused")
+		Registry registry  = LocateRegistry.createRegistry(1099);
+        GameCreatorImpl createur = new GameCreatorImpl();
+        Naming.bind("Createur", createur);
     }
 	
 }
