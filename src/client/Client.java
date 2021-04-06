@@ -28,47 +28,40 @@ public class Client {
 
     public static void main(String []args) throws RemoteException, MalformedURLException, NotBoundException {
 
-        @SuppressWarnings("unused")
+	    @SuppressWarnings("unused")
 		Registry registry = LocateRegistry.getRegistry(1099);
-        GameCreator createur = (GameCreator) Naming.lookup(URL + "/Createur");
-        GameManager manage;
-        NotificationImpl notification = new NotificationImpl();
+	    GameCreator createur = (GameCreator) Naming.lookup(URL + "/Createur");
+	    GameManager manage;
+	    NotificationImpl notification = new NotificationImpl();
         
-       String nomPartie;
- 
-       if(Client.getInput() == 1) {
-            nomPartie = createur.creerPartie();
-            System.out.println("Creation de la partie " + nomPartie);
-            
-            manage = createur.getGameManager(nomPartie);
-            Naming.rebind(URL + "/"+ nomPartie, manage);          
-            
-            /*---*/
-            manage.ajouterNotification(notification);
-            manage.rejoindrePartie("crt");
-            
-       }
-        
-       else {
-            nomPartie = createur.trouverPartie();
-            if(nomPartie == null) 
-                System.out.println("Aucune partie trouvee");
-            else {
-                System.out.println("Partie trouvee : " + nomPartie);
-                manage = createur.getGameManager(nomPartie);
-                Naming.rebind(URL + "/"+ nomPartie, manage);
-                              
-                /*---*/
-                
-                manage.rejoindrePartie("rj");
-            }
-        }
-
-       @SuppressWarnings("unused")
-       int in = getInput();
-        
-        
-    	
+		String nomPartie;
+		
+		do {
+			if(Client.getInput() == 1) {
+				nomPartie = createur.creerPartie();
+				System.out.println("Creation de la partie " + nomPartie);
+				
+				manage = createur.getGameManager(nomPartie);
+				Naming.rebind(URL + "/"+ nomPartie, manage);          
+				
+				/*---*/
+				manage.ajouterNotification(notification);
+				manage.rejoindrePartie("crt");
+				        
+			} else {
+		        nomPartie = createur.trouverPartie();
+		        if(nomPartie == null) {
+		            System.out.println("Aucune partie trouvee");
+		        } else {
+					    System.out.println("Partie trouvee : " + nomPartie);
+					manage = createur.getGameManager(nomPartie);
+					Naming.rebind(URL + "/"+ nomPartie, manage);
+					      
+					/*---*/
+					manage.rejoindrePartie("rj");
+		        }
+		    }
+		}while(true);
 
     }
 }

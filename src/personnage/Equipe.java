@@ -28,6 +28,16 @@ public class Equipe extends ArrayList<Personnage> {
 		}
 	}
 	
+	public Personnage getPersonnageAvecNom(String nom) {
+		for(Personnage personnage : this) {
+			if(personnage.getNom().equals(nom)) {
+				return personnage;
+			}
+		}
+		return null;
+	}
+	
+	
 	private Integer getOrigineBonus(Personnage personnage, Class<?> typeStat, Integer bonus) {
 		if(personnage.getOrigineTypeStat().equals(typeStat)) {
 			Integer nombre = 1;
@@ -76,4 +86,13 @@ public class Equipe extends ArrayList<Personnage> {
 		return this.size() == TAILLE_EQUIPE_MAX;
 	}
 
+	public Boolean isOneVivant() {
+		for(Personnage personnage : this) {
+			if(personnage.isVivant()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

@@ -16,15 +16,6 @@ public class Util {
 		return null;
 	}
 	
-	public static Personnage getPersonnageAvecNom(String nom, ArrayList<Personnage> personnages) {
-		for(Personnage personnage : personnages) {
-			if(personnage.getNom().equals(nom)) {
-				return personnage;
-			}
-		}
-		return null;
-	}
-	
 	public static ArrayList<Personnage> getAllPersonnages(){
 		ArrayList<Personnage> personnages = new ArrayList<>();
 		personnages.add(new Ahri());

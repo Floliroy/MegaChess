@@ -44,7 +44,11 @@ public class Plateau {
 	
 	public void placerPersonnage(Personnage personnage, Integer ligne, Integer colonne) {
 		if(getCase(ligne, colonne) == null) {
-			plateau[ligne][colonne].setPersonnage(personnage);
+			Case previousCase = getCase(personnage);
+			if(previousCase != null) {
+				previousCase.setPersonnage(null);
+			}
+			getCase(ligne, colonne).setPersonnage(personnage);
 		}
 	}
 	
@@ -86,5 +90,46 @@ public class Plateau {
 			}
 		}
 		return null;
+	}
+	
+	public boolean peutDeplacer(Personnage personnage, Integer ligneFin, Integer colonneFin) {
+		Integer deplacements = personnage.getDeplacementsAvecBonus();
+		Case position = getCase(personnage);
+		Integer positionX = position.getColonne();
+		Integer positionY = position.getLigne();
+		Integer decalage = 0;
+
+		for(int ligne = positionY - deplacements; ligne <= positionY + deplacements; ligne ++) {
+			for(int colonne = positionX - decalage; colonne <= positionX + decalage; colonne ++) {
+				if(getCase(colonne, ligne) != null && !personnage.equals(getCase(colonne, ligne).getPersonnage())) {
+					if(colonne == colonneFin && ligne == ligneFin) {
+						return true;
+					}
+				}
+			}
+			decalage = ligne < positionY ? decalage + 1 : decalage - 1;
+		}
+		return false;
+	}
+	
+
+	public boolean peutAttaquer(Personnage personnage, Integer ligneFin, Integer colonneFin) {
+		Integer portee = personnage.getPorteeAvecBonus();
+		Case position = getCase(personnage);
+		Integer positionX = position.getColonne();
+		Integer positionY = position.getLigne();
+		Integer decalage = 0;
+
+		for(int ligne = positionY - portee; ligne <= positionY + portee; ligne ++) {
+			for(int colonne = positionX - decalage; colonne <= positionX + decalage; colonne ++) {
+				if(getCase(colonne, ligne) != null && !personnage.equals(getCase(colonne, ligne).getPersonnage())) {
+					if(colonne == colonneFin && ligne == ligneFin) {
+						return true;
+					}
+				}
+			}
+			decalage = ligne < positionY ? decalage + 1 : decalage - 1;
+		}
+		return false;
 	}
 }
