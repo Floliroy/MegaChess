@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import partie.Jeu;
 import partie.Joueur;
@@ -17,7 +18,7 @@ public class GameManagerImpl extends UnicastRemoteObject implements GameManager 
 	
 	private String id;
     private Jeu jeu;
-    private Notification notification;
+    private ArrayList<Notification> notifications;
  
     public GameManagerImpl(String gameId) throws RemoteException, AlreadyBoundException {
         Registry registry = LocateRegistry.getRegistry();
@@ -35,23 +36,20 @@ public class GameManagerImpl extends UnicastRemoteObject implements GameManager 
         return this.id;
     }
 
-    @Override
-    public String sayHello() throws RemoteException {
-        return "Hello";
+    private void notifier() {
+    	for()
     }
 
+    // Notification comme ArrayList pour en stacker plusieurs
     @Override
     public void ajouterNotification(Notification notification) {
-    	if(this.notification == null) 
-    		this.notification = notification;
-    	else
-    		System.out.println("Notification deja presente");
+    	notifications.add(notification);
     }
     
     @Override
     public void rejoindrePartie(String name) throws RemoteException {	
     	jeu.addJoueur(new Joueur(name));
-    	notification.notifier("Un joueur a ete ajoute ");
+    	//notification.notifier("Un joueur a ete ajoute ");
     }
  
     

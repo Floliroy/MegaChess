@@ -4,6 +4,7 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import serveur.base.GameCreator;
 import serveur.base.GameManager;
@@ -12,10 +13,10 @@ public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator 
 	
 	private static final long serialVersionUID = -360720568897070466L;
 	
-	private ArrayList<GameManagerImpl> list;
+	private HashMap<String,GameManagerImpl> list;
 
     public GameCreatorImpl() throws RemoteException {
-        list = new ArrayList<GameManagerImpl>();
+        list = new HashMap<String,GameManagerImpl>();
     }
 
     public String generateId(){
@@ -23,10 +24,11 @@ public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator 
     }
 
     public void addGame(String gameId) throws RemoteException, AlreadyBoundException {
-        list.add(new GameManagerImpl(gameId));
+        list.put(gameId,new GameManagerImpl(gameId));
         System.out.println("La partie a bien ete cree");
     }
 
+    
     @Override
     public String creerPartie() {
         String id = generateId();
