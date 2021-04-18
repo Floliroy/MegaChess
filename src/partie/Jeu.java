@@ -85,28 +85,42 @@ public class Jeu implements Serializable {
 					}while(!plateau.isDansPlateau(ligne, colonne) || !plateau.peutDeplacer(personnage, ligne, colonne));
 					Case prevCase = plateau.getCase(personnage);
 					Integer distance = plateau.placerPersonnage(personnage, ligne, colonne);
+					plateau.afficher();
 					deplacementsBase -= distance;
 					
 					manager.deplacerPersonnage(prevCase, ligne, colonne);
 					joueur.setJetonPasser(true);
 				}else if(peutAttaquer && ((action == 1 && !peutDeplacer) || (action == 2 && peutDeplacer))) {
-					Personnage adversaire;
+					Personnage adversaire = null;
+					
 					do {
 						System.out.println("Qui souhaitez vous attaquer ?");
+						Boolean cibleDispo = false;
 						for(Personnage perso : joueurs.get((j+1)%2).getEquipe()) {
-							if(perso.isVivant()) {
+							if(perso.isVivant() && plateau.peutAttaquer(personnage, plateau.getCase(perso).getLigne(), plateau.getCase(perso).getColonne())) {
+								cibleDispo = true;
 								System.out.println(perso.getNom() + " (" + perso.getNom().charAt(0) + ") en position (" + plateau.getCase(perso).getColonne() + ", " + plateau.getCase(perso).getLigne() + ")");
 							}
 						}
-						adversaire = joueurs.get((j+1)%2).getEquipe().getPersonnageAvecNom(Clavier.entrerClavierString());
-					}while(!plateau.peutAttaquer(personnage, plateau.getCase(adversaire).getLigne(), plateau.getCase(adversaire).getColonne()));
-					personnage.attaque(adversaire);
-					if(!adversaire.isVivant()) {
-						plateau.getCase(adversaire).setPersonnage(null);
+						if(!cibleDispo) {
+							System.out.println("Pas de cible attaquable");
+						} else {
+							adversaire = joueurs.get((j+1)%2).getEquipe().getPersonnageAvecNom(Clavier.entrerClavierString());
+						}
+							
+						
+					}while(adversaire != null && !plateau.peutAttaquer(personnage, plateau.getCase(adversaire).getLigne(), plateau.getCase(adversaire).getColonne()));
+					
+					if(adversaire != null) {
+						personnage.attaque(adversaire);
+						manager.subitDegats(plateau.getCase(adversaire), personnage);
+						if(!adversaire.isVivant()) {
+							plateau.getCase(adversaire).setPersonnage(null);
+						}
+						joueur.setJetonPasser(true);
+						joueur.setJetonAttaque(false);
 					}
-					manager.subitDegats(plateau.getCase(adversaire), personnage);
-					joueur.setJetonPasser(true);
-					joueur.setJetonAttaque(false);
+					
 				}else {
 					finTour = true;
 				}

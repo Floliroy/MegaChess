@@ -109,17 +109,28 @@ public class Plateau implements Serializable {
 		Integer positionY = position.getLigne();
 		Integer decalage = 0;
 
-		for(int ligne = positionY - deplacements; ligne <= positionY + deplacements; ligne ++) {
-			for(int colonne = positionX - decalage; colonne <= positionX + decalage; colonne ++) {
-				if(getCase(colonne, ligne) != null && !personnage.equals(getCase(colonne, ligne).getPersonnage())) {
-					if(colonne == colonneFin && ligne == ligneFin) {
-						return true;
-					}
-				}
-			}
-			decalage = ligne < positionY ? decalage + 1 : decalage - 1;
+		Integer distance = Math.abs(positionY - ligneFin) + Math.abs(positionX - colonneFin);
+		if(distance <= deplacements && getCase(ligneFin, colonneFin).getPersonnage() == null)
+			return true;
+		else {
+			System.out.println("IS NOK");
+			return false;
 		}
-		return false;
+			
+		
+//		for(int ligne = positionY - deplacements; ligne <= positionY + deplacements; ligne ++) {
+//			for(int colonne = positionX - decalage; colonne <= positionX + decalage; colonne ++) {
+//				if(getCase(colonne, ligne) != null && !personnage.equals(getCase(colonne, ligne).getPersonnage())) {
+//					if(colonne == colonneFin && ligne == ligneFin) {
+//						System.out.println("IS OK");
+//						return true;
+//					}
+//				}
+//			}
+//			decalage = ligne < positionY ? decalage + 1 : decalage - 1;
+//		}
+		
+//		return false;
 	}
 	
 
