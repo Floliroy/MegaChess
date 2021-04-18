@@ -11,6 +11,8 @@ public class MessageNotification implements Serializable {
 	
 	public static final int ACTION_ECRICE_MESSAGE = 0;
 	public static final int ACTION_FIN_CREER_EQUIPE = 1;
+	public static final int ACTION_MESSAGE_ASYNCHRONE = 2;
+	
 	
 	private String message;
 	private Integer action;

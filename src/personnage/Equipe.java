@@ -41,7 +41,7 @@ public class Equipe extends ArrayList<Personnage> implements Serializable {
 	
 	private Integer getOrigineBonus(Personnage personnage, Class<?> typeStat, Integer bonus) {
 		if(personnage.getOrigineTypeStat().equals(typeStat)) {
-			Integer nombre = 1;
+			Integer nombre = 0;
 			for(Personnage perso : this) {
 				if(perso.getOrigineTypeStat().equals(typeStat) && perso != personnage) {
 					nombre++;
@@ -53,7 +53,7 @@ public class Equipe extends ArrayList<Personnage> implements Serializable {
 	}
 	private Integer getElementBonus(Personnage personnage, Class<?> typeStat, Integer bonus) {
 		if(personnage.getElementTypeStat().equals(typeStat)) {
-			Integer nombre = 1;
+			Integer nombre = 0;
 			for(Personnage perso : this) {
 				if(perso.getElementTypeStat().equals(typeStat) && perso != personnage) {
 					nombre++;
