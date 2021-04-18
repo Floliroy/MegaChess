@@ -51,6 +51,9 @@ public class Jeu implements Serializable {
 		plateau.afficher();
 		//On affiche les infos du joueur
 		Joueur joueur = joueurs.get(j);
+		if(!joueur.getEquipe().isOneVivant()) {
+			return true;
+		}
 		System.out.println(joueur.getNom() + " a ton tour !");
 		System.out.println("Tu possèdes les pions :");
 		for(Personnage personnage : joueur.getEquipe()) {
@@ -112,11 +115,14 @@ public class Jeu implements Serializable {
 					}while(adversaire != null && !plateau.peutAttaquer(personnage, plateau.getCase(adversaire).getLigne(), plateau.getCase(adversaire).getColonne()));
 					
 					if(adversaire != null) {
+						Case prevCase = plateau.getCase(adversaire);
 						personnage.attaque(adversaire);
-						manager.subitDegats(plateau.getCase(adversaire), personnage);
 						if(!adversaire.isVivant()) {
-							plateau.getCase(adversaire).setPersonnage(null);
+							prevCase.setPersonnage(null);
 						}
+						
+						manager.subitDegats(prevCase, personnage);
+						
 						joueur.setJetonPasser(true);
 						joueur.setJetonAttaque(false);
 					}

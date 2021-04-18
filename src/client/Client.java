@@ -78,14 +78,11 @@ public class Client {
 		Boolean partieFinie = createurPartie ? null : false;
 		do {
 			if(partieFinie != null) {
-				System.err.println("Salut");
 				waitNotification();
-				System.err.println("Hello");
 			}
 			partieFinie = manager.getJeu().jouerTour(manager, createurPartie);
 			manager.notifier(new MessageNotification("Fin du tour...", MessageNotification.ACTION_ECRICE_MESSAGE));
 			waitNotification();
-			System.err.println("Coucou");
 		}while(!partieFinie);
 		System.err.println("ALED ?");
     }

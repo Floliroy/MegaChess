@@ -83,7 +83,10 @@ public class GameManagerImpl extends UnicastRemoteObject implements GameManager 
 		Personnage adversaire = jeu.getPlateau().getCase(caseDefenseur.getLigne(), caseDefenseur.getColonne()).getPersonnage();
 		adversaire.recoitDegats(attaquant.getDegatsAvecBonus());
 		if(!adversaire.isVivant()) {
+			System.out.println(adversaire.getNom() + " est mort !");
 			jeu.getPlateau().getCase(adversaire).setPersonnage(null);
+		}else {
+			System.out.println("Il reste " + adversaire.getVieAvecBonus() + "PV a " + adversaire.getNom());
 		}
 	}
     
