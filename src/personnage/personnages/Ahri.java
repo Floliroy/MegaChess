@@ -7,7 +7,12 @@ import personnage.origines.Ionia;
 public class Ahri extends Personnage implements Ionia, Eau {
 
 	/**
-	 * 
+	 * Initialise le personnage Ahri avec pour capacités :
+	 *  - vie = 80
+	 *  - degats = 30
+	 *  - deplacements = 4
+	 *  - portee = 6
+	 *  - vitesse = 0,5
 	 */
 	private static final long serialVersionUID = 758435429718851684L;
 	private static final String nom = "Ahri";

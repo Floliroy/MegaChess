@@ -7,7 +7,12 @@ import personnage.origines.Noxus;
 public class Swain extends Personnage implements Noxus, Feu {
 
 	/**
-	 * 
+	 * Initialise le personnage Swain avec pour capacités :
+	 *  - vie = 180
+	 *  - degats = 20
+	 *  - deplacements = 2
+	 *  - portee = 5
+	 *  - vitesse = 0,4
 	 */
 	private static final long serialVersionUID = -474319239446476603L;
 	private static final String nom = "Swain";

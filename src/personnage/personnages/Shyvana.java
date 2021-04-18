@@ -7,7 +7,12 @@ import personnage.origines.Demacia;
 public class Shyvana extends Personnage implements Demacia, Feu {
 
 	/**
-	 * 
+	 * Initialise le personnage Shyvana avec pour capacités :
+	 *  - vie = 150
+	 *  - degats = 20
+	 *  - deplacements = 4
+	 *  - portee = 3
+	 *  - vitesse = 0,7
 	 */
 	private static final long serialVersionUID = 7754879773234122743L;
 	private static final String nom = "Shyvana";

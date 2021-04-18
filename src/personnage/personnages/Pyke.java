@@ -7,7 +7,12 @@ import personnage.origines.BilgeWater;
 public class Pyke extends Personnage implements BilgeWater, Eau {
 
 	/**
-	 * 
+	 * Initialise le personnage Pyke avec pour capacités :
+	 *  - vie = 120
+	 *  - degats = 35
+	 *  - deplacements = 3
+	 *  - portee = 4
+	 *  - vitesse = 0,4
 	 */
 	private static final long serialVersionUID = 5364815965123579223L;
 	private static final String nom = "Pyke";

@@ -7,7 +7,12 @@ import personnage.origines.BilgeWater;
 public class Illaoi extends Personnage implements BilgeWater, Terre {
 
 	/**
-	 * 
+	 * Initialise le personnage Illaoi avec pour capacités :
+	 *  - vie = 150
+	 *  - degats = 30
+	 *  - deplacements = 2
+	 *  - portee = 2
+	 *  - vitesse = 0,3
 	 */
 	private static final long serialVersionUID = -2097827763397616551L;
 	private static final String nom = "Illaoi";

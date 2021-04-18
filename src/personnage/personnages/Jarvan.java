@@ -7,7 +7,12 @@ import personnage.origines.Demacia;
 public class Jarvan extends Personnage implements Demacia, Terre {
 
 	/**
-	 * 
+	 * Initialise le personnage Jarvan avec pour capacités :
+	 *  - vie = 150
+	 *  - degats = 20
+	 *  - deplacements = 5
+	 *  - portee = 2
+	 *  - vitesse = 0,5
 	 */
 	private static final long serialVersionUID = -4318385028968610191L;
 	private static final String nom = "Jarvan";

@@ -7,7 +7,12 @@ import personnage.origines.Demacia;
 public class Sona extends Personnage implements Demacia, Eau {
 
 	/**
-	 * 
+	 * Initialise le personnage Sona avec pour capacités :
+	 *  - vie = 80
+	 *  - degats = 15
+	 *  - deplacements = 2
+	 *  - portee = 6
+	 *  - vitesse = 0,4
 	 */
 	private static final long serialVersionUID = -6225478158371982502L;
 	private static final String nom = "Sona";

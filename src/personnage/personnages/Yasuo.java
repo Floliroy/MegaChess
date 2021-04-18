@@ -7,7 +7,12 @@ import personnage.origines.Ionia;
 public class Yasuo extends Personnage implements Ionia, Vent {
 
 	/**
-	 * 
+	 * Initialise le personnage Yasuo avec pour capacités :
+	 *  - vie = 100
+	 *  - degats = 30
+	 *  - deplacements = 4
+	 *  - portee = 2
+	 *  - vitesse = 0,7
 	 */
 	private static final long serialVersionUID = -6290874682638672874L;
 	private static final String nom = "Yasuo";

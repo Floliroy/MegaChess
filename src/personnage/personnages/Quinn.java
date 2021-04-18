@@ -7,7 +7,12 @@ import personnage.origines.Demacia;
 public class Quinn extends Personnage implements Demacia, Vent {
 
 	/**
-	 * 
+	 * Initialise le personnage Quinn avec pour capacités :
+	 *  - vie = 80
+	 *  - degats = 30
+	 *  - deplacements = 4
+	 *  - portee = 8
+	 *  - vitesse = 0,7
 	 */
 	private static final long serialVersionUID = 7530746210480532388L;
 	private static final String nom = "Quinn";

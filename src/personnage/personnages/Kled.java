@@ -7,7 +7,12 @@ import personnage.origines.Noxus;
 public class Kled extends Personnage implements Noxus, Feu {
 
 	/**
-	 * 
+	 * Initialise le personnage Kled avec pour capacités :
+	 *  - vie = 150
+	 *  - degats = 25
+	 *  - deplacements = 6
+	 *  - portee = 1
+	 *  - vitesse = 0,7
 	 */
 	private static final long serialVersionUID = 3109399295692555903L;
 	private static final String nom = "Kled";

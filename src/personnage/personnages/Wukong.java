@@ -7,7 +7,12 @@ import personnage.origines.Ionia;
 public class Wukong extends Personnage implements Ionia, Feu {
 
 	/**
-	 * 
+	 * Initialise le personnage Wukong avec pour capacités :
+	 *  - vie = 120
+	 *  - degats = 25
+	 *  - deplacements = 3
+	 *  - portee = 3
+	 *  - vitesse = 0,6
 	 */
 	private static final long serialVersionUID = 7541666763676390936L;
 	private static final String nom = "Wukong";

@@ -7,7 +7,12 @@ import personnage.origines.Noxus;
 public class Talon extends Personnage implements Noxus, Vent {
 
 	/**
-	 * 
+	 * Initialise le personnage Talon avec pour capacités :
+	 *  - vie = 80
+	 *  - degats = 50
+	 *  - deplacements = 5
+	 *  - portee = 3
+	 *  - vitesse = 0,5
 	 */
 	private static final long serialVersionUID = -530820033801355466L;
 	private static final String nom = "Talon";

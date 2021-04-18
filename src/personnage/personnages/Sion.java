@@ -7,7 +7,12 @@ import personnage.origines.Noxus;
 public class Sion extends Personnage implements Noxus, Terre {
 
 	/**
-	 * 
+	 * Initialise le personnage Sion avec pour capacités :
+	 *  - vie = 200
+	 *  - degats = 15
+	 *  - deplacements = 2
+	 *  - portee = 1
+	 *  - vitesse = 0,3
 	 */
 	private static final long serialVersionUID = 4318697447674103945L;
 	private static final String nom = "Sion";
