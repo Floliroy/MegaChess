@@ -58,7 +58,7 @@ public class GameManagerImpl extends UnicastRemoteObject implements GameManager 
     @Override
     public void rejoindrePartie(String name, Notification notification) throws RemoteException {	
     	jeu.addJoueur(new Joueur(name));
-    	notifier(new MessageNotification(name + " a rejoint la partie", MessageNotification.ACTION_ECRICE_MESSAGE));
+    	notifier(new MessageNotification("\n" + name + " a rejoint la partie", MessageNotification.ACTION_ECRICE_MESSAGE));
     	notifications.add(notification);
     }
 

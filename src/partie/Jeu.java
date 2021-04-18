@@ -54,7 +54,7 @@ public class Jeu implements Serializable {
 		if(!joueur.getEquipe().isOneVivant()) {
 			return true;
 		}
-		System.out.println(joueur.getNom() + " a ton tour !");
+		System.out.println("\n" + joueur.getNom() + " a ton tour !\n");
 		System.out.println("Tu possèdes les pions :");
 		for(Personnage personnage : joueur.getEquipe()) {
 			if(personnage.isVivant()) {
@@ -79,7 +79,7 @@ public class Jeu implements Serializable {
 					Integer colonne;
 					Integer ligne;
 					do {
-						System.out.println("Vous avez " + deplacementsBase + " de deplacements disponible !");
+						System.out.println("\nVous avez " + deplacementsBase + " de deplacements disponible !");
 						System.out.println("Sur quelle case souhaitez vous aller ? (X, Y)");
 						System.out.print("Entrer la colonne (X) :");
 						colonne = Clavier.entrerClavierInt();
@@ -96,7 +96,7 @@ public class Jeu implements Serializable {
 					Personnage adversaire = null;
 					
 					do {
-						System.out.println("Qui souhaitez vous attaquer ?");
+						System.out.println("\nQui souhaitez vous attaquer ?");
 						Boolean cibleDispo = false;
 						for(Personnage perso : joueurs.get((j+1)%2).getEquipe()) {
 							if(perso.isVivant() && plateau.peutAttaquer(personnage, plateau.getCase(perso).getLigne(), plateau.getCase(perso).getColonne())) {
@@ -138,7 +138,7 @@ public class Jeu implements Serializable {
 	public Integer choixAction(boolean peutDeplacer, boolean peutAttaquer, boolean peutPasser) {
 		Integer action;
 		do {
-			System.out.println("Choisis l'action que tu souhaites effectuer :");
+			System.out.println("\nChoisis l'action que tu souhaites effectuer :");
 			if(peutDeplacer) {
 				System.out.println(" 1 - Se déplacer");
 				if(peutAttaquer) {

@@ -38,11 +38,11 @@ public class Client {
         System.out.println("1 - Créer partie \n2 - Rejoindre partie");
 		if(Clavier.entrerClavierInt() == 1) {
 			String nomPartie = creator.creerPartie();
-			System.out.println("Creation de la partie " + nomPartie);
+			System.out.println("Création de la partie : " + nomPartie);
 			
 			manager = creator.getGameManager(nomPartie);
 			Naming.rebind(URL + "/"+ nomPartie, manager);   
-			System.out.println("Entrez votre nom :");
+			System.out.println("\nEntrez votre nom : ");
 			manager.rejoindrePartie(Clavier.entrerClavierString(), notification);
 			createurPartie = true;
 		} else {
@@ -61,17 +61,17 @@ public class Client {
 		waitNotification();
 		if(createurPartie) {
 			//Lancer partie
-			System.out.println("Appuyez sur entrée pour lancer la partie");
+			System.out.println("\nAppuyez sur entrée pour lancer la partie");
 			System.in.read();
 			//Envoie notif debut partie
-			manager.notifier(new MessageNotification("Début de la Partie", MessageNotification.ACTION_ECRICE_MESSAGE));
+			manager.notifier(new MessageNotification("Début de la Partie\n", MessageNotification.ACTION_ECRICE_MESSAGE));
 			waitNotification();
 		}
 		
 		//Blabla je crée mon équipe et j'envoie
 		manager.getJeu().creerEquipe(manager, createurPartie);
-		System.out.println("En attente de l'autre joueur ...");
-		manager.notifier(new MessageNotification("Les équipes sont prêtes !", MessageNotification.ACTION_FIN_CREER_EQUIPE));
+		System.out.println("\nEn attente de l'autre joueur ...");
+		manager.notifier(new MessageNotification("\nLes équipes sont prêtes !", MessageNotification.ACTION_FIN_CREER_EQUIPE));
 		waitNotification();
 
 		//Debut partie
@@ -81,9 +81,9 @@ public class Client {
 				waitNotification();
 			}
 			partieFinie = manager.getJeu().jouerTour(manager, createurPartie);
-			manager.notifier(new MessageNotification("Fin du tour...", MessageNotification.ACTION_ECRICE_MESSAGE));
+			manager.notifier(new MessageNotification("\nFin du tour...", MessageNotification.ACTION_ECRICE_MESSAGE));
 			waitNotification();
 		}while(!partieFinie);
-		System.err.println("ALED ?");
+		System.err.println("Fin de la partie !");
     }
 }

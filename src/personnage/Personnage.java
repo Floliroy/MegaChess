@@ -137,7 +137,7 @@ public abstract class Personnage implements Element, Origine, Serializable {
 	
 	public void attaque(Personnage adversaire, GameManager manager) throws RemoteException {
 		if(manager != null) {
-			manager.notifier(new MessageNotification(this.nom + " attaque " + adversaire.getNom(), MessageNotification.ACTION_MESSAGE_ASYNCHRONE));
+			manager.notifier(new MessageNotification("\n" + this.nom + " attaque " + adversaire.getNom(), MessageNotification.ACTION_MESSAGE_ASYNCHRONE));
 		}
 		adversaire.recoitDegats(getDegatsAvecBonus(), manager);
 	}
