@@ -15,6 +15,7 @@ import util.Clavier;
 
 public class Client {
 	
+	
 	public static final String SERVEUR_IP = "localhost";
 	public static final String URL = "rmi://"+ SERVEUR_IP;
 	private static NotificationImpl notification;
@@ -36,24 +37,29 @@ public class Client {
 	    notification = new NotificationImpl();
 
         System.out.println("1 - Créer partie \n2 - Rejoindre partie");
+        //On choisit de créer une partie
 		if(Clavier.entrerClavierInt() == 1) {
 			String nomPartie = creator.creerPartie();
 			System.out.println("Création de la partie : " + nomPartie);
-			
+			//Creation de la partie
 			manager = creator.getGameManager(nomPartie);
-			Naming.rebind(URL + "/"+ nomPartie, manager);   
+			Naming.rebind(URL + "/"+ nomPartie, manager);
+			//On saisie notre nom et on rejoint la partie
 			System.out.println("\nEntrez votre nom : ");
 			manager.rejoindrePartie(Clavier.entrerClavierString(), notification);
 			createurPartie = true;
 		} else {
+			//On cherche une partie
 			String nomPartie = creator.trouverPartie();
+			//Aucune partie trouvée
 	        if(nomPartie == null) {
 	            System.out.println("Aucune partie trouvee");
 	        } else {
+	        	//On trouve une partie
 				System.out.println("Partie trouvee : " + nomPartie);
 				manager = creator.getGameManager(nomPartie);
 				Naming.rebind(URL + "/"+ nomPartie, manager);
-				
+				//On saisie notre nom et on rejoint la partie
 				System.out.println("Entrez votre nom :");
 				manager.rejoindrePartie(Clavier.entrerClavierString(), notification);
 	        }
@@ -68,9 +74,10 @@ public class Client {
 			waitNotification();
 		}
 		
-		//Blabla je crée mon équipe et j'envoie
+		//Création de l'équipe 
 		manager.getJeu().creerEquipe(manager, createurPartie);
 		System.out.println("\nEn attente de l'autre joueur ...");
+		//Envoie notif quand les équipes sont prêtes
 		manager.notifier(new MessageNotification("\nLes équipes sont prêtes !", MessageNotification.ACTION_FIN_CREER_EQUIPE));
 		waitNotification();
 

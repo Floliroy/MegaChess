@@ -16,15 +16,24 @@ public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator 
     public GameCreatorImpl() throws RemoteException {
         list = new HashMap<String,GameManagerImpl>();
     }
-
+    /**
+	 * Fonction qui permet de générer l'ID de la partie
+	 *
+	 */
     public String generateId(){
         return "partie"+(list.size() + 1);
     }
     
     @Override
+    /**
+	 * Fonction qui permet de créer une partie
+	 * 
+	 */
     public String creerPartie() {
+    	//Génération de l'ID et affichage visuel
         String id = generateId();
         System.out.println("Creation de " + id);
+        //Création de la partie avec notre ID
         try {
             list.put(id, new GameManagerImpl(id));
             System.out.println("La partie a bien ete cree");
@@ -35,6 +44,10 @@ public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator 
     }
 
     @Override
+    /**
+	 * Fonction qui permet de trouver une partie
+	 * 
+	 */
     public String trouverPartie() throws RemoteException{
         // Recuperation du premier GameManager avec une place de libre
         GameManagerImpl gm = null;
@@ -58,6 +71,10 @@ public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator 
     }
     
     @Override
+    /**
+   	 * Fonction qui permet de récupérer la partie en fonction de son nom
+   	 * 
+   	 */
     public GameManagerImpl getGameManager(String nomPartie) throws RemoteException {
     	return list.get(nomPartie);
     }

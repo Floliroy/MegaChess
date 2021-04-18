@@ -14,9 +14,7 @@ import util.Util;
 
 public class Jeu implements Serializable {
 	
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	private static final Integer TAILLE_JOUEURS_MAX = 2;
