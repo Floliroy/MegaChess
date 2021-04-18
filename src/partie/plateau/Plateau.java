@@ -49,14 +49,17 @@ public class Plateau implements Serializable {
 		return null;
 	}
 	
-	public void placerPersonnage(Personnage personnage, Integer ligne, Integer colonne) {
+	public Integer placerPersonnage(Personnage personnage, Integer ligne, Integer colonne) {
+		Integer distance = null;
 		if(getCase(ligne, colonne) != null) {
 			Case previousCase = getCase(personnage);
 			if(previousCase != null) {
 				previousCase.setPersonnage(null);
+				distance = Math.abs(previousCase.getColonne() - colonne) + Math.abs(previousCase.getLigne() - ligne);
 			}
 			getCase(ligne, colonne).setPersonnage(personnage);
 		}
+		return distance;
 	}
 	
 	public void afficher() {

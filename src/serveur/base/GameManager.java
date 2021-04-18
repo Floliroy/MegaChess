@@ -4,6 +4,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 import partie.Jeu;
+import partie.plateau.Case;
+import personnage.Equipe;
 import personnage.Personnage;
 
 public interface GameManager extends Remote {
@@ -14,9 +16,11 @@ public interface GameManager extends Remote {
 	
 	Jeu getJeu() throws RemoteException;
 
-	void placerPersonnage(Personnage personnage, Integer ligne, Integer colonne) throws RemoteException;
+	void creerEquipe(Equipe equipe, Boolean createurPartie) throws RemoteException;
 
-	void addPersonnageToEquipe(Personnage personnage, Integer joueur) throws RemoteException;
+	void deplacerPersonnage(Case prevCase, Integer ligne, Integer colonne) throws RemoteException;
 
-	void actionAttaque(Personnage attaquant, Personnage defenseur) throws RemoteException;
+	void subitDegats(Case caseDefenseur, Personnage attaquant) throws RemoteException;
+
+	
 }

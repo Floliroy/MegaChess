@@ -42,13 +42,10 @@ public class Jeu implements Serializable {
 			}while(personnage == null);
 			
 			joueurs.get(joueur).getEquipe().add(personnage);
-			manager.addPersonnageToEquipe(personnage, joueur);
-			
-			Case c = joueur == 0 ? plateau.getFirstCaseLeft() : plateau.getFirstCaseRight();
-			plateau.placerPersonnage(personnage, c.getLigne(), c.getColonne());
-			manager.placerPersonnage(personnage, c.getLigne(), c.getColonne());
 		}
+		manager.creerEquipe(joueurs.get(joueur).getEquipe(), createurPartie);
 	}	
+	
 	public Boolean jouerTour(GameManager manager, Boolean createurPartie) throws RemoteException {
 		Integer j = createurPartie ? 0 : 1;
 		plateau.afficher();
@@ -79,30 +76,35 @@ public class Jeu implements Serializable {
 					Integer colonne;
 					Integer ligne;
 					do {
+						System.out.println("Vous avez " + deplacementsBase + " de deplacements disponible !");
 						System.out.println("Sur quelle case souhaitez vous aller ? (X, Y)");
 						System.out.print("Entrer la colonne (X) :");
 						colonne = Clavier.entrerClavierInt();
 						System.out.print("Entrer la ligne (Y) :");
 						ligne = Clavier.entrerClavierInt();
 					}while(!plateau.isDansPlateau(ligne, colonne) || !plateau.peutDeplacer(personnage, ligne, colonne));
-					plateau.placerPersonnage(personnage, ligne, colonne);
-					manager.placerPersonnage(personnage, ligne, colonne);
+					Case prevCase = plateau.getCase(personnage);
+					Integer distance = plateau.placerPersonnage(personnage, ligne, colonne);
+					deplacementsBase -= distance;
+					
+					manager.deplacerPersonnage(prevCase, ligne, colonne);
 					joueur.setJetonPasser(true);
 				}else if(peutAttaquer && ((action == 1 && !peutDeplacer) || (action == 2 && peutDeplacer))) {
 					Personnage adversaire;
 					do {
 						System.out.println("Qui souhaitez vous attaquer ?");
 						for(Personnage perso : joueurs.get((j+1)%2).getEquipe()) {
-							if(personnage.isVivant()) {
+							if(perso.isVivant()) {
 								System.out.println(perso.getNom() + " (" + perso.getNom().charAt(0) + ") en position (" + plateau.getCase(perso).getColonne() + ", " + plateau.getCase(perso).getLigne() + ")");
 							}
 						}
 						adversaire = joueurs.get((j+1)%2).getEquipe().getPersonnageAvecNom(Clavier.entrerClavierString());
 					}while(!plateau.peutAttaquer(personnage, plateau.getCase(adversaire).getLigne(), plateau.getCase(adversaire).getColonne()));
-					manager.actionAttaque(personnage, adversaire);
+					personnage.attaque(adversaire);
 					if(!adversaire.isVivant()) {
 						plateau.getCase(adversaire).setPersonnage(null);
 					}
+					manager.subitDegats(plateau.getCase(adversaire), personnage);
 					joueur.setJetonPasser(true);
 					joueur.setJetonAttaque(false);
 				}else {
@@ -112,7 +114,7 @@ public class Jeu implements Serializable {
 		}while(!finTour);
 		joueur.resetJetons();
 		
-		return joueurs.get((j+1)%2).getEquipe().isOneVivant();
+		return !joueurs.get((j+1)%2).getEquipe().isOneVivant();
 	}
 	
 	public Integer choixAction(boolean peutDeplacer, boolean peutAttaquer, boolean peutPasser) {

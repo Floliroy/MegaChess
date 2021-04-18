@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import partie.Jeu;
 import partie.Joueur;
+import partie.plateau.Case;
+import personnage.Equipe;
 import personnage.Personnage;
 import serveur.base.GameManager;
 import serveur.base.MessageNotification;
@@ -61,22 +63,30 @@ public class GameManagerImpl extends UnicastRemoteObject implements GameManager 
     }
 
 	@Override
-	public void placerPersonnage(Personnage personnage, Integer ligne, Integer colonne) throws RemoteException {
+	public void creerEquipe(Equipe equipe, Boolean createurPartie) throws RemoteException {
+		Joueur joueur = jeu.getJoueurs().get(createurPartie ? 0 : 1);
+		for(Personnage personnage : equipe) {
+			joueur.getEquipe().add(personnage);
+			Case c = createurPartie ? jeu.getPlateau().getFirstCaseLeft() : jeu.getPlateau().getFirstCaseRight();
+			jeu.getPlateau().placerPersonnage(personnage, c.getLigne(), c.getColonne());
+		}
+	}
+
+	@Override
+	public void deplacerPersonnage(Case prevCase, Integer ligne, Integer colonne) throws RemoteException {
+		Personnage personnage = jeu.getPlateau().getCase(prevCase.getLigne(), prevCase.getColonne()).getPersonnage();
 		jeu.getPlateau().placerPersonnage(personnage, ligne, colonne);
 	}
 
 	@Override
-	public void addPersonnageToEquipe(Personnage personnage, Integer joueur) throws RemoteException {
-		jeu.getJoueurs().get(joueur).getEquipe().add(personnage);
-	}
-
-	@Override
-	public void actionAttaque(Personnage attaquant, Personnage defenseur) throws RemoteException {
-		attaquant.attaque(defenseur);
-		if(!defenseur.isVivant()) {
-			jeu.getPlateau().getCase(defenseur).setPersonnage(null);
+	public void subitDegats(Case caseDefenseur, Personnage attaquant) throws RemoteException {
+		Personnage adversaire = jeu.getPlateau().getCase(caseDefenseur.getLigne(), caseDefenseur.getColonne()).getPersonnage();
+		adversaire.recoitDegats(attaquant.getDegatsAvecBonus());
+		if(!adversaire.isVivant()) {
+			jeu.getPlateau().getCase(adversaire).setPersonnage(null);
 		}
 	}
+    
     
     
 }

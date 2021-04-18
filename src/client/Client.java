@@ -73,17 +73,20 @@ public class Client {
 		System.out.println("En attente de l'autre joueur ...");
 		manager.notifier(new MessageNotification("Les équipes sont prêtes !", MessageNotification.ACTION_FIN_CREER_EQUIPE));
 		waitNotification();
-		
-		manager.getJeu().getPlateau().afficher();
+
 		//Debut partie
-		Boolean partieFinie = null;
+		Boolean partieFinie = createurPartie ? null : false;
 		do {
-			if(!createurPartie || partieFinie != null) {
+			if(partieFinie != null) {
+				System.err.println("Salut");
 				waitNotification();
+				System.err.println("Hello");
 			}
 			partieFinie = manager.getJeu().jouerTour(manager, createurPartie);
 			manager.notifier(new MessageNotification("Fin du tour...", MessageNotification.ACTION_ECRICE_MESSAGE));
 			waitNotification();
+			System.err.println("Coucou");
 		}while(!partieFinie);
+		System.err.println("ALED ?");
     }
 }
