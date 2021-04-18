@@ -22,7 +22,9 @@ public class NotificationImpl extends UnicastRemoteObject implements Notificatio
 	@Override
 	public void notifier(MessageNotification message) throws RemoteException  {
 		System.out.println(message.getMessage());
-		this.message = message;
+		if(message.getAction() != MessageNotification.ACTION_MESSAGE_ASYNCHRONE) {
+			this.message = message;
+		}
 	}
 
 	public synchronized MessageNotification getMessage() {

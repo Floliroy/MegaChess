@@ -88,7 +88,6 @@ public class Jeu implements Serializable {
 					}while(!plateau.isDansPlateau(ligne, colonne) || !plateau.peutDeplacer(personnage, ligne, colonne));
 					Case prevCase = plateau.getCase(personnage);
 					Integer distance = plateau.placerPersonnage(personnage, ligne, colonne);
-					plateau.afficher();
 					deplacementsBase -= distance;
 					
 					manager.deplacerPersonnage(prevCase, ligne, colonne);
@@ -111,12 +110,11 @@ public class Jeu implements Serializable {
 							adversaire = joueurs.get((j+1)%2).getEquipe().getPersonnageAvecNom(Clavier.entrerClavierString());
 						}
 							
-						
 					}while(adversaire != null && !plateau.peutAttaquer(personnage, plateau.getCase(adversaire).getLigne(), plateau.getCase(adversaire).getColonne()));
 					
 					if(adversaire != null) {
 						Case prevCase = plateau.getCase(adversaire);
-						personnage.attaque(adversaire);
+						personnage.attaque(adversaire, null);
 						if(!adversaire.isVivant()) {
 							prevCase.setPersonnage(null);
 						}

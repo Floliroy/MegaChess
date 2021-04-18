@@ -76,17 +76,16 @@ public class GameManagerImpl extends UnicastRemoteObject implements GameManager 
 	public void deplacerPersonnage(Case prevCase, Integer ligne, Integer colonne) throws RemoteException {
 		Personnage personnage = jeu.getPlateau().getCase(prevCase.getLigne(), prevCase.getColonne()).getPersonnage();
 		jeu.getPlateau().placerPersonnage(personnage, ligne, colonne);
+		notifier(new MessageNotification(jeu.getPlateau().print(), MessageNotification.ACTION_MESSAGE_ASYNCHRONE));
 	}
 
 	@Override
 	public void subitDegats(Case caseDefenseur, Personnage attaquant) throws RemoteException {
 		Personnage adversaire = jeu.getPlateau().getCase(caseDefenseur.getLigne(), caseDefenseur.getColonne()).getPersonnage();
-		adversaire.recoitDegats(attaquant.getDegatsAvecBonus());
+		attaquant.attaque(adversaire, this);
 		if(!adversaire.isVivant()) {
-			System.out.println(adversaire.getNom() + " est mort !");
+			notifier(new MessageNotification(adversaire.getNom() + " est mort !", MessageNotification.ACTION_MESSAGE_ASYNCHRONE));
 			jeu.getPlateau().getCase(adversaire).setPersonnage(null);
-		}else {
-			System.out.println("Il reste " + adversaire.getVieAvecBonus() + "PV a " + adversaire.getNom());
 		}
 	}
     

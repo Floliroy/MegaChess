@@ -1,6 +1,7 @@
 package personnage;
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import objet.Objet;
@@ -11,6 +12,8 @@ import objet.typestat.Vie;
 import objet.typestat.Vitesse;
 import personnage.elements.Element;
 import personnage.origines.Origine;
+import serveur.base.GameManager;
+import serveur.base.MessageNotification;
 
 public abstract class Personnage implements Element, Origine, Serializable {
 	
@@ -118,19 +121,25 @@ public abstract class Personnage implements Element, Origine, Serializable {
 		return this.esquive + bonus/100;
 	}
 	
-	public void recoitDegats(Integer degatsRecus) {
+	public void recoitDegats(Integer degatsRecus, GameManager manager) throws RemoteException {
 		degatsRecus = degatsRecus >= 0 ? degatsRecus : 0;
 		if(Math.random() > this.getEsquiveAvecBonus()) {
 			vie -= degatsRecus;
-			System.out.println(this.nom + " -" + degatsRecus + "PV");
+			if(manager != null) {
+				manager.notifier(new MessageNotification(this.nom + " -" + degatsRecus + "PV", MessageNotification.ACTION_MESSAGE_ASYNCHRONE));				
+			}
 		}else {
-			System.out.println(this.nom + " esquive l'attaque");
+			if(manager != null) {
+				manager.notifier(new MessageNotification(this.nom + " esquive l'attaque", MessageNotification.ACTION_MESSAGE_ASYNCHRONE));				
+			}
 		}
 	}
 	
-	public void attaque(Personnage adversaire) {
-		System.out.println(this.nom + " attaque " + adversaire.getNom());
-		adversaire.recoitDegats(getDegatsAvecBonus());
+	public void attaque(Personnage adversaire, GameManager manager) throws RemoteException {
+		if(manager != null) {
+			manager.notifier(new MessageNotification(this.nom + " attaque " + adversaire.getNom(), MessageNotification.ACTION_MESSAGE_ASYNCHRONE));
+		}
+		adversaire.recoitDegats(getDegatsAvecBonus(), manager);
 	}
 
 	public Boolean isVivant() {

@@ -78,6 +78,24 @@ public class Plateau implements Serializable {
 		System.out.print("\n----------------------------------------------------------------------------------\n");
 	}
 	
+	public String print() {
+		String retour = "";
+		for(Case[] ligne : this.plateau) {
+			retour +="\n----------------------------------------------------------------------------------\n";
+			retour += "|| ";
+			for(Case c : ligne) {
+				if(!c.isEmpty()) {
+					retour += c.getPersonnage().getNom().charAt(0);
+				}else {
+					retour += " ";
+				}
+				retour += " || ";
+			}
+		}
+		retour += "\n----------------------------------------------------------------------------------\n";
+		return retour;
+	}
+	
 	public Case getFirstCaseLeft() {
 		for(Case []ligne : plateau) {
 			for(Case c : ligne) {
@@ -107,7 +125,6 @@ public class Plateau implements Serializable {
 		Case position = getCase(personnage);
 		Integer positionX = position.getColonne();
 		Integer positionY = position.getLigne();
-		Integer decalage = 0;
 
 		Integer distance = Math.abs(positionY - ligneFin) + Math.abs(positionX - colonneFin);
 		if(distance <= deplacements && getCase(ligneFin, colonneFin).getPersonnage() == null)
