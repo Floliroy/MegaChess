@@ -90,9 +90,9 @@ public class Jeu implements Serializable {
 					do {
 						System.out.println("\nVous avez " + deplacementsBase + " de deplacements disponible !");
 						System.out.println("Sur quelle case souhaitez vous aller ? (X, Y)");
-						System.out.print("Entrer la colonne (X) :");
+						System.out.print("Entrer la colonne (X) : ");
 						colonne = Clavier.entrerClavierInt();
-						System.out.print("Entrer la ligne (Y) :");
+						System.out.print("Entrer la ligne (Y) : ");
 						ligne = Clavier.entrerClavierInt();
 					}while(!plateau.isDansPlateau(ligne, colonne) || !plateau.peutDeplacer(personnage, ligne, colonne));
 					

@@ -81,9 +81,10 @@ public class Client {
 				waitNotification();
 			}
 			partieFinie = manager.getJeu().jouerTour(manager, createurPartie);
-			manager.notifier(new MessageNotification("\nFin du tour...", MessageNotification.ACTION_ECRICE_MESSAGE));
+			String message = !partieFinie ? "\nFin du tour..." : "";
+			manager.notifier(new MessageNotification(message, MessageNotification.ACTION_ECRICE_MESSAGE));
 			waitNotification();
 		}while(!partieFinie);
-		System.err.println("Fin de la partie !");
+		System.err.println("\nFin de la partie !");
     }
 }
