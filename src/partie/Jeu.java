@@ -37,7 +37,7 @@ public class Jeu implements Serializable {
 				System.out.println(joueurs.get(joueur).getNom() + " entre le nom du personnage que tu souhaites ajouter a ton équipe :");
 				personnage = Util.getPersonnageAvecNom(Clavier.entrerClavierString());
 				if(personnage != null) {
-					personnage = joueurs.get(joueur).getEquipe().contains(personnage) ? null : personnage;
+					personnage = joueurs.get(joueur).getEquipe().getPersonnageAvecNom(personnage.getNom()) != null ? null : personnage;
 				}
 			}while(personnage == null);
 			
@@ -63,8 +63,17 @@ public class Jeu implements Serializable {
 		}
 		
 		//On sélectionne ce que le joueur souhaite jouer
-		System.out.println("Entre le nom du personnage que tu souhaites jouer :");
-		Personnage personnage = joueur.getEquipe().getPersonnageAvecNom(Clavier.entrerClavierString());
+		Personnage personnage = null;
+		do {
+			System.out.println("Entre le nom du personnage que tu souhaites jouer :");
+			personnage = Util.getPersonnageAvecNom(Clavier.entrerClavierString());
+			if(personnage == null) {
+				System.out.println("Saisie incorrecte");
+			} else {
+				personnage = joueur.getEquipe().getPersonnageAvecNom(personnage.getNom());
+			}
+		}while(personnage == null);
+		
 		Integer deplacementsBase = personnage.getDeplacementsAvecBonus();
 		boolean finTour = false;
 		do {
@@ -86,6 +95,7 @@ public class Jeu implements Serializable {
 						System.out.print("Entrer la ligne (Y) :");
 						ligne = Clavier.entrerClavierInt();
 					}while(!plateau.isDansPlateau(ligne, colonne) || !plateau.peutDeplacer(personnage, ligne, colonne));
+					
 					Case prevCase = plateau.getCase(personnage);
 					Integer distance = plateau.placerPersonnage(personnage, ligne, colonne);
 					deplacementsBase -= distance;
