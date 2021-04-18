@@ -6,6 +6,10 @@ import personnage.origines.Demacia;
 
 public class Shyvana extends Personnage implements Demacia, Feu {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7754879773234122743L;
 	private static final String nom = "Shyvana";
 	private static final Integer vie = 150;
 	private static final Integer deplacements = 4;

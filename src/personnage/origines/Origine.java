@@ -1,6 +1,8 @@
 package personnage.origines;
 
-public abstract interface Origine {
+import java.io.Serializable;
+
+public abstract interface Origine extends Serializable {
 	
 	public Class<?> getOrigine();
 	

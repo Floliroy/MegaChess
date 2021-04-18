@@ -1,10 +1,16 @@
 package partie.plateau;
 
+import java.io.Serializable;
+
 import personnage.Personnage;
 
-public class Plateau {
+public class Plateau implements Serializable {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8950926030513685994L;
 	private final static Integer NOMBRE_LIGNE = 8;
 	private final static Integer NOMBRE_COLONNE = 16;
 	
@@ -26,10 +32,11 @@ public class Plateau {
 	}
 	
 	public Case getCase(Integer ligne, Integer colonne) {
-		if(isDansPlateau(ligne, colonne))
+		if(isDansPlateau(ligne, colonne)) {
 			return plateau[ligne][colonne];
-		else
+		}else {
 			return null;
+		}
 	}
 	
 	public Case getCase(Personnage personnage){
@@ -43,7 +50,7 @@ public class Plateau {
 	}
 	
 	public void placerPersonnage(Personnage personnage, Integer ligne, Integer colonne) {
-		if(getCase(ligne, colonne) == null) {
+		if(getCase(ligne, colonne) != null) {
 			Case previousCase = getCase(personnage);
 			if(previousCase != null) {
 				previousCase.setPersonnage(null);

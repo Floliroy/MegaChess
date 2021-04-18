@@ -6,6 +6,10 @@ import personnage.origines.Noxus;
 
 public class Talon extends Personnage implements Noxus, Vent {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -530820033801355466L;
 	private static final String nom = "Talon";
 	private static final Integer vie = 80;
 	private static final Integer deplacements = 5;

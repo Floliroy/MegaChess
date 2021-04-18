@@ -6,6 +6,10 @@ import personnage.origines.BilgeWater;
 
 public class Illaoi extends Personnage implements BilgeWater, Terre {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2097827763397616551L;
 	private static final String nom = "Illaoi";
 	private static final Integer vie = 150;
 	private static final Integer degats = 30;

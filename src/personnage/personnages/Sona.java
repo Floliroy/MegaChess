@@ -6,6 +6,10 @@ import personnage.origines.Demacia;
 
 public class Sona extends Personnage implements Demacia, Eau {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6225478158371982502L;
 	private static final String nom = "Sona";
 	private static final Integer vie = 80;
 	private static final Integer deplacements = 2;

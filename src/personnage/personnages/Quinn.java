@@ -6,6 +6,10 @@ import personnage.origines.Demacia;
 
 public class Quinn extends Personnage implements Demacia, Vent {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7530746210480532388L;
 	private static final String nom = "Quinn";
 	private static final Integer vie = 80;
 	private static final Integer deplacements = 4;

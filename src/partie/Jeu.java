@@ -1,16 +1,24 @@
 package partie;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import partie.plateau.Case;
 import partie.plateau.Plateau;
 import personnage.Equipe;
 import personnage.Personnage;
+import serveur.base.GameManager;
 import util.Clavier;
 import util.Util;
 
-public class Jeu {
+public class Jeu implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final Integer TAILLE_JOUEURS_MAX = 2;
 	
 	private ArrayList<Joueur> joueurs;
@@ -18,29 +26,31 @@ public class Jeu {
 	
 	public Jeu() {
 		this.joueurs = new ArrayList<>();
+		this.plateau = new Plateau();
 	}
+
+	public void creerEquipe(GameManager manager, Boolean createurPartie) throws RemoteException {
+		Integer joueur = createurPartie ? 0 : 1;
+		for(int i=0 ; i<Equipe.TAILLE_EQUIPE_MAX ; i++) {
+			Personnage personnage;
+			do {
+				System.out.println(joueurs.get(joueur).getNom() + " entre le nom du personnage que tu souhaites ajouter a ton équipe :");
+				personnage = Util.getPersonnageAvecNom(Clavier.entrerClavierString());
+				if(personnage != null) {
+					personnage = joueurs.get(joueur).getEquipe().contains(personnage) ? null : personnage;
+				}
+			}while(personnage == null);
+			
+			joueurs.get(joueur).getEquipe().add(personnage);
+			manager.addPersonnageToEquipe(personnage, joueur);
+			
+			Case c = joueur == 0 ? plateau.getFirstCaseLeft() : plateau.getFirstCaseRight();
+			plateau.placerPersonnage(personnage, c.getLigne(), c.getColonne());
+			manager.placerPersonnage(personnage, c.getLigne(), c.getColonne());
+		}
+	}	
 	
 	public void lancerPartie() {
-		for(int joueur=0 ; joueur<2 ; joueur++) {
-			System.out.println("Entrez le nom du joueur " + joueur+1 + " :");
-			joueurs.add(new Joueur(Clavier.entrerClavierString()));
-			
-			for(int i=0 ; i<Equipe.TAILLE_EQUIPE_MAX ; i++) {
-				Personnage personnage;
-				do {
-					System.out.println(joueurs.get(joueur).getNom() + " entre le nom du personnage que tu souhaites ajouter a ton équipe :");
-					personnage = Util.getPersonnageAvecNom(Clavier.entrerClavierString());
-					if(personnage != null) {
-						personnage = joueurs.get(joueur).getEquipe().contains(personnage) ? null : personnage;
-					}
-				}while(personnage == null);
-				
-				joueurs.get(joueur).getEquipe().add(personnage);
-				
-				Case c = joueur == 0 ? plateau.getFirstCaseLeft() : plateau.getFirstCaseRight();
-				plateau.placerPersonnage(personnage, c.getLigne(), c.getColonne());
-			}
-		}
 		System.out.println("Début de la Partie");
 		
 		Boolean partieFinie = false;
@@ -150,6 +160,25 @@ public class Jeu {
 
 	public boolean isComplet() {
 		return joueurs.size() >= TAILLE_JOUEURS_MAX;
+	}
+	
+	public boolean bothEquipeComplete() {
+		if(!isComplet()) return false;
+		
+		for(Joueur joueur : joueurs) {
+			if(!joueur.getEquipe().isComplete()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public Plateau getPlateau() {
+		return this.plateau;
+	}
+	
+	public ArrayList<Joueur> getJoueurs() {
+		return this.joueurs;
 	}
 
 }

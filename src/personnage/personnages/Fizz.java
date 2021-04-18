@@ -6,6 +6,10 @@ import personnage.origines.BilgeWater;
 
 public class Fizz extends Personnage implements BilgeWater, Eau {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8507563459542728609L;
 	private static final String nom = "Fizz";
 	private static final Integer vie = 100;
 	private static final Integer degats = 40;

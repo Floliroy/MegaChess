@@ -6,6 +6,10 @@ import personnage.origines.Ionia;
 
 public class Ahri extends Personnage implements Ionia, Eau {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 758435429718851684L;
 	private static final String nom = "Ahri";
 	private static final Integer vie = 80;
 	private static final Integer degats = 30;

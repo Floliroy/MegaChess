@@ -6,6 +6,10 @@ import personnage.origines.Demacia;
 
 public class Jarvan extends Personnage implements Demacia, Terre {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4318385028968610191L;
 	private static final String nom = "Jarvan";
 	private static final Integer vie = 150;
 	private static final Integer deplacements = 5;

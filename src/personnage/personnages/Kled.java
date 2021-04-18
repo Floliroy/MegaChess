@@ -6,6 +6,10 @@ import personnage.origines.Noxus;
 
 public class Kled extends Personnage implements Noxus, Feu {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3109399295692555903L;
 	private static final String nom = "Kled";
 	private static final Integer vie = 150;
 	private static final Integer deplacements = 6;

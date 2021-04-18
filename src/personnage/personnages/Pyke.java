@@ -6,6 +6,10 @@ import personnage.origines.BilgeWater;
 
 public class Pyke extends Personnage implements BilgeWater, Eau {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5364815965123579223L;
 	private static final String nom = "Pyke";
 	private static final Integer vie = 120;
 	private static final Integer deplacements = 3;

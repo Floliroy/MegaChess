@@ -1,5 +1,6 @@
 package personnage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import objet.Objet;
@@ -11,8 +12,13 @@ import objet.typestat.Vitesse;
 import personnage.elements.Element;
 import personnage.origines.Origine;
 
-public abstract class Personnage implements Element, Origine {
+public abstract class Personnage implements Element, Origine, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6874285791013628216L;
+
 	////////////////////
 	//// CONSTANTES ////
 	////////////////////

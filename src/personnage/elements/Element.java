@@ -1,6 +1,8 @@
 package personnage.elements;
 
-public abstract interface Element {
+import java.io.Serializable;
+
+public abstract interface Element extends Serializable {
 
 	public Class<?> getElement();
 

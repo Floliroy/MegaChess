@@ -1,5 +1,6 @@
 package personnage;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import objet.typestat.Degats;
@@ -7,11 +8,11 @@ import objet.typestat.Deplacements;
 import objet.typestat.Portee;
 import objet.typestat.Vie;
 
-public class Equipe extends ArrayList<Personnage> {
+public class Equipe extends ArrayList<Personnage> implements Serializable {
 
 	private static final long serialVersionUID = -8065185716558859597L;
 	
-	public static final Integer TAILLE_EQUIPE_MAX = 4;
+	public static final Integer TAILLE_EQUIPE_MAX = 2;
 	
 	private static final Integer BONUS_VIE = 50;
 	private static final Integer BONUS_DEGATS = 10;
@@ -95,4 +96,11 @@ public class Equipe extends ArrayList<Personnage> {
 		return false;
 	}
 	
+	public void afficher() {
+		for(Personnage personnage : this) {
+			if(personnage.isVivant()) {
+				System.out.println(personnage.getNom() + " (" + personnage.getNom().charAt(0) + ")");
+			}
+		}
+	}
 }

@@ -1,13 +1,11 @@
 package serveur.implementation;
 
-import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import serveur.base.GameCreator;
-import serveur.base.GameManager;
 
 public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator {
 	
@@ -22,40 +20,33 @@ public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator 
     public String generateId(){
         return "partie"+(list.size() + 1);
     }
-
-    public void addGame(String gameId) throws RemoteException, AlreadyBoundException {
-        list.put(gameId,new GameManagerImpl(gameId));
-        System.out.println("La partie a bien ete cree");
-    }
-
     
     @Override
     public String creerPartie() {
         String id = generateId();
         System.out.println("Creation de " + id);
         try {
-            addGame(id);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (AlreadyBoundException e) {
+            list.put(id, new GameManagerImpl(id));
+            System.out.println("La partie a bien ete cree");
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return id;
     }
 
     @Override
-    public String trouverPartie(){
+    public String trouverPartie() throws RemoteException{
         // Recuperation du premier GameManager avec une place de libre
         GameManagerImpl gm = null;
 
-        for(int cmpt = 0; cmpt < list.size(); cmpt++){
-            if(!list.get(cmpt).getJeu().isComplet()){
-                gm = list.get(cmpt);
+        for(Entry<String, GameManagerImpl> set : list.entrySet()) {
+        	if(!set.getValue().getJeu().isComplet()) {
+        		gm = set.getValue();
                 System.out.println("Partie trouvee " + gm.getId());
                 break;
-            }
+        	}
         }
-
+        
         // On verifie qu'une place a bien ete trouvee
         if(gm != null){
             String id = gm.getId();
@@ -67,14 +58,8 @@ public class GameCreatorImpl extends UnicastRemoteObject implements GameCreator 
     }
     
     @Override
-    public GameManager getGameManager(String nomPartie)throws RemoteException {
-    	int cmpt = 0;
-    	while(cmpt < list.size()) {
-    		if(list.get(cmpt).getId().equals(nomPartie))
-    			return list.get(cmpt);
-    		cmpt ++;
-    	}
-    	return null;
+    public GameManagerImpl getGameManager(String nomPartie) throws RemoteException {
+    	return list.get(nomPartie);
     }
 
 }

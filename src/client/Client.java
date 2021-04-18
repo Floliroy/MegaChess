@@ -1,67 +1,81 @@
 package client;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.Scanner;
 
 import serveur.base.GameCreator;
 import serveur.base.GameManager;
+import serveur.base.MessageNotification;
 import serveur.implementation.NotificationImpl;
+import util.Clavier;
 
 
 public class Client {
 	
 	public static final String SERVEUR_IP = "localhost";
 	public static final String URL = "rmi://"+ SERVEUR_IP;
+	private static NotificationImpl notification;
 	
-	public static int getInput(){
-        System.out.println("1 - Create \n2 - Join");
-        
-        @SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-        return sc.nextInt();
-    }
+	private static MessageNotification waitNotification() {
+		while(notification.getMessage() == null);
+		MessageNotification message = notification.getMessage();
+		notification.setMessage(null);
+		return message;
+	}
 
-    public static void main(String []args) throws RemoteException, MalformedURLException, NotBoundException {
+    public static void main(String []args) throws NotBoundException, IOException {
 
 	    @SuppressWarnings("unused")
 		Registry registry = LocateRegistry.getRegistry(1099);
-	    GameCreator createur = (GameCreator) Naming.lookup(URL + "/Createur");
-	    GameManager manage;
-	    NotificationImpl notification = new NotificationImpl();
-        
-		String nomPartie;
+	    GameCreator creator = (GameCreator) Naming.lookup(URL + "/Createur");
+	    GameManager manager = null;
+	    Boolean createurPartie = false;
+	    notification = new NotificationImpl();
+
+        System.out.println("1 - Créer partie \n2 - Rejoindre partie");
+		if(Clavier.entrerClavierInt() == 1) {
+			String nomPartie = creator.creerPartie();
+			System.out.println("Creation de la partie " + nomPartie);
+			
+			manager = creator.getGameManager(nomPartie);
+			Naming.rebind(URL + "/"+ nomPartie, manager);   
+			System.out.println("Entrez votre nom :");
+			manager.rejoindrePartie(Clavier.entrerClavierString(), notification);
+			createurPartie = true;
+		} else {
+			String nomPartie = creator.trouverPartie();
+	        if(nomPartie == null) {
+	            System.out.println("Aucune partie trouvee");
+	        } else {
+				System.out.println("Partie trouvee : " + nomPartie);
+				manager = creator.getGameManager(nomPartie);
+				Naming.rebind(URL + "/"+ nomPartie, manager);
+				
+				System.out.println("Entrez votre nom :");
+				manager.rejoindrePartie(Clavier.entrerClavierString(), notification);
+	        }
+	    }
+		waitNotification();
+		if(createurPartie) {
+			//Lancer partie
+			System.out.println("Appuyez sur entrée pour lancer la partie");
+			System.in.read();
+			//Envoie notif debut partie
+			manager.notifier(new MessageNotification("Début de la Partie", MessageNotification.ACTION_ECRICE_MESSAGE));
+			waitNotification();
+		}
 		
-		do {
-			if(Client.getInput() == 1) {
-				nomPartie = createur.creerPartie();
-				System.out.println("Creation de la partie " + nomPartie);
-				
-				manage = createur.getGameManager(nomPartie);
-				Naming.rebind(URL + "/"+ nomPartie, manage);          
-				
-				/*---*/
-				manage.ajouterNotification(notification);
-				manage.rejoindrePartie("crt");
-				        
-			} else {
-		        nomPartie = createur.trouverPartie();
-		        if(nomPartie == null) {
-		            System.out.println("Aucune partie trouvee");
-		        } else {
-					    System.out.println("Partie trouvee : " + nomPartie);
-					manage = createur.getGameManager(nomPartie);
-					Naming.rebind(URL + "/"+ nomPartie, manage);
-					      
-					/*---*/
-					manage.rejoindrePartie("rj");
-		        }
-		    }
-		}while(true);
+		//Blabla je crée mon équipe et j'envoie
+		manager.getJeu().creerEquipe(manager, createurPartie);
+		System.out.println("En attente de l'autre joueur ...");
+		manager.notifier(new MessageNotification("Les équipes sont prêtes !", MessageNotification.ACTION_FIN_CREER_EQUIPE));
+		waitNotification();
+		
+		manager.getJeu().getPlateau().afficher();
+		//Debut partie
 
     }
 }

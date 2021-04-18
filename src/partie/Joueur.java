@@ -1,8 +1,15 @@
 package partie;
 
+import java.io.Serializable;
+
 import personnage.Equipe;
 
-public class Joueur {
+public class Joueur implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2760203883913530088L;
 
 	private String nom;
 	

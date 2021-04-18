@@ -6,6 +6,10 @@ import personnage.origines.Noxus;
 
 public class Swain extends Personnage implements Noxus, Feu {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -474319239446476603L;
 	private static final String nom = "Swain";
 	private static final Integer vie = 180;
 	private static final Integer deplacements = 2;

@@ -6,6 +6,10 @@ import personnage.origines.Ionia;
 
 public class Wukong extends Personnage implements Ionia, Feu {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7541666763676390936L;
 	private static final String nom = "Wukong";
 	private static final Integer vie = 120;
 	private static final Integer deplacements = 3;
