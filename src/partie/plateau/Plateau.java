@@ -26,6 +26,11 @@ public class Plateau implements Serializable {
 	}
 	
 	
+	public Integer calculDistance(Case previousCase, Integer ligne, Integer colonne) {
+		return Math.abs(previousCase.getColonne() - colonne) + Math.abs(previousCase.getLigne() - ligne);
+		
+	}
+	
 	//Methodes
 	public boolean isDansPlateau(Integer ligne, Integer colonne) {
 		return (ligne >= 0 && ligne < NOMBRE_LIGNE) && (colonne >= 0 && colonne < NOMBRE_COLONNE ); 
@@ -55,7 +60,7 @@ public class Plateau implements Serializable {
 			Case previousCase = getCase(personnage);
 			if(previousCase != null) {
 				previousCase.setPersonnage(null);
-				distance = Math.abs(previousCase.getColonne() - colonne) + Math.abs(previousCase.getLigne() - ligne);
+				distance = calculDistance(previousCase, ligne, colonne);
 			}
 			getCase(ligne, colonne).setPersonnage(personnage);
 		}
@@ -105,52 +110,27 @@ public class Plateau implements Serializable {
 	public boolean peutDeplacer(Personnage personnage, Integer ligneFin, Integer colonneFin) {
 		Integer deplacements = personnage.getDeplacementsAvecBonus();
 		Case position = getCase(personnage);
-		Integer positionX = position.getColonne();
-		Integer positionY = position.getLigne();
-		Integer decalage = 0;
-
-		Integer distance = Math.abs(positionY - ligneFin) + Math.abs(positionX - colonneFin);
+		Integer distance =calculDistance(position, ligneFin, colonneFin);
 		if(distance <= deplacements && getCase(ligneFin, colonneFin).getPersonnage() == null)
 			return true;
 		else {
-			System.out.println("IS NOK");
+			System.out.println("Déplacement impossible");
 			return false;
 		}
 			
-		
-//		for(int ligne = positionY - deplacements; ligne <= positionY + deplacements; ligne ++) {
-//			for(int colonne = positionX - decalage; colonne <= positionX + decalage; colonne ++) {
-//				if(getCase(colonne, ligne) != null && !personnage.equals(getCase(colonne, ligne).getPersonnage())) {
-//					if(colonne == colonneFin && ligne == ligneFin) {
-//						System.out.println("IS OK");
-//						return true;
-//					}
-//				}
-//			}
-//			decalage = ligne < positionY ? decalage + 1 : decalage - 1;
-//		}
-		
-//		return false;
+
 	}
 	
 
 	public boolean peutAttaquer(Personnage personnage, Integer ligneFin, Integer colonneFin) {
 		Integer portee = personnage.getPorteeAvecBonus();
 		Case position = getCase(personnage);
-		Integer positionX = position.getColonne();
-		Integer positionY = position.getLigne();
-		Integer decalage = 0;
-
-		for(int ligne = positionY - portee; ligne <= positionY + portee; ligne ++) {
-			for(int colonne = positionX - decalage; colonne <= positionX + decalage; colonne ++) {
-				if(getCase(colonne, ligne) != null && !personnage.equals(getCase(colonne, ligne).getPersonnage())) {
-					if(colonne == colonneFin && ligne == ligneFin) {
-						return true;
-					}
-				}
-			}
-			decalage = ligne < positionY ? decalage + 1 : decalage - 1;
+		Integer distance =calculDistance(position, ligneFin, colonneFin);
+		if(distance <= portee && getCase(ligneFin, colonneFin).getPersonnage() != null)
+			return true;
+		else {
+			return false;
 		}
-		return false;
+
 	}
 }
