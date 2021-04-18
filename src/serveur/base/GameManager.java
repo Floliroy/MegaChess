@@ -17,4 +17,6 @@ public interface GameManager extends Remote {
 	void placerPersonnage(Personnage personnage, Integer ligne, Integer colonne) throws RemoteException;
 
 	void addPersonnageToEquipe(Personnage personnage, Integer joueur) throws RemoteException;
+
+	void actionAttaque(Personnage attaquant, Personnage defenseur) throws RemoteException;
 }

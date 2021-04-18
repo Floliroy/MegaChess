@@ -69,6 +69,14 @@ public class GameManagerImpl extends UnicastRemoteObject implements GameManager 
 	public void addPersonnageToEquipe(Personnage personnage, Integer joueur) throws RemoteException {
 		jeu.getJoueurs().get(joueur).getEquipe().add(personnage);
 	}
+
+	@Override
+	public void actionAttaque(Personnage attaquant, Personnage defenseur) throws RemoteException {
+		attaquant.attaque(defenseur);
+		if(!defenseur.isVivant()) {
+			jeu.getPlateau().getCase(defenseur).setPersonnage(null);
+		}
+	}
     
     
 }

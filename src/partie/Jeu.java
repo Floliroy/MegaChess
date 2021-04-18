@@ -49,19 +49,8 @@ public class Jeu implements Serializable {
 			manager.placerPersonnage(personnage, c.getLigne(), c.getColonne());
 		}
 	}	
-	
-	public void lancerPartie() {
-		System.out.println("Début de la Partie");
-		
-		Boolean partieFinie = false;
-		Boolean joueur = false;
-		do {
-			joueur = !joueur;
-			partieFinie = jouerTour(joueur ? 0 : 1);
-		}while(!partieFinie);
-	}
-
-	public Boolean jouerTour(Integer j) {
+	public Boolean jouerTour(GameManager manager, Boolean createurPartie) throws RemoteException {
+		Integer j = createurPartie ? 0 : 1;
 		plateau.afficher();
 		//On affiche les infos du joueur
 		Joueur joueur = joueurs.get(j);
@@ -97,6 +86,7 @@ public class Jeu implements Serializable {
 						ligne = Clavier.entrerClavierInt();
 					}while(!plateau.isDansPlateau(ligne, colonne) || !plateau.peutDeplacer(personnage, ligne, colonne));
 					plateau.placerPersonnage(personnage, ligne, colonne);
+					manager.placerPersonnage(personnage, ligne, colonne);
 					joueur.setJetonPasser(true);
 				}else if(peutAttaquer && ((action == 1 && !peutDeplacer) || (action == 2 && peutDeplacer))) {
 					Personnage adversaire;
@@ -109,7 +99,7 @@ public class Jeu implements Serializable {
 						}
 						adversaire = joueurs.get((j+1)%2).getEquipe().getPersonnageAvecNom(Clavier.entrerClavierString());
 					}while(!plateau.peutAttaquer(personnage, plateau.getCase(adversaire).getLigne(), plateau.getCase(adversaire).getColonne()));
-					personnage.attaque(adversaire);
+					manager.actionAttaque(personnage, adversaire);
 					if(!adversaire.isVivant()) {
 						plateau.getCase(adversaire).setPersonnage(null);
 					}

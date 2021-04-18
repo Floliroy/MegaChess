@@ -76,6 +76,14 @@ public class Client {
 		
 		manager.getJeu().getPlateau().afficher();
 		//Debut partie
-
+		Boolean partieFinie = null;
+		do {
+			if(!createurPartie || partieFinie != null) {
+				waitNotification();
+			}
+			partieFinie = manager.getJeu().jouerTour(manager, createurPartie);
+			manager.notifier(new MessageNotification("Fin du tour...", MessageNotification.ACTION_ECRICE_MESSAGE));
+			waitNotification();
+		}while(!partieFinie);
     }
 }
